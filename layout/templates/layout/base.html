@@ -1,0 +1,126 @@
+  
+  
+  <!DOCTYPE html>
+
+  
+{% load static %}
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <title>Jugement {% block title %}{% endblock %}</title>
+
+    <!-- Bootstrap core CSS -->
+    <link href="{% static 'layout/assets/plugins/bootstrap/css/bootstrap.min.css' %}" rel="stylesheet">
+
+    <!-- Font Awesome -->
+    <link href="{% static 'layout/assets/plugins/font-awesome/css/font-awesome.min.css' %}" rel="stylesheet" type="text/css">
+
+    <!-- Themify Icons -->
+    <link href="{% static 'layout/assets/plugins/themify/css/themify.css' %}" rel="stylesheet" type="text/css">
+
+    <!-- Angular Tooltip Css -->
+    <link href="{% static 'layout/assets/plugins/angular-tooltip/angular-tooltips.css' %}" rel="stylesheet">
+
+    <!-- Morris Charts CSS -->
+    <link href="{% static 'layout/assets/plugins/morris.js/morris.css' %}" rel="stylesheet">
+
+    <!-- Page level plugin CSS -->
+    <link href="{% static 'layout/css/animate.css' %}" rel="stylesheet">
+
+    <!-- Custom styles for this template -->
+    <link href="{% static 'layout/css/adminfier.css' %}" rel="stylesheet">
+    <link href="{% static 'layout/css/adminfier-responsive.css' %}" rel="stylesheet">
+
+    <!-- Color Skins -->
+    <link rel="stylesheet" href="{% static 'layout/css/skins/default.css' %}">
+
+    {% block extra_css %} {% endblock %}
+    <!-- Dans base.html par exemple -->
+<link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+
+
+</head>
+
+
+<body class="fixed-nav sticky-footer red-skin" id="page-top">
+    {% include 'layout/navbar.html' %}
+
+    <div class="content-wrapper">
+        <div class="container-fluid">
+            {% block content %}
+            
+            
+            {% endblock %}
+        </div>
+    </div>
+
+    {% include 'layout/footer.html' %}
+
+ <!-- Scroll to Top Button -->
+<a class="scroll-to-top rounded cl-white theme-bg" href="#page-top">
+    <i class="ti-angle-double-up"></i>
+</a>
+
+<!-- JavaScript Plugins -->
+<script src="{% static 'layout/assets/plugins/jquery/jquery.min.js' %}"></script>
+<script src="{% static 'layout/assets/plugins/bootstrap/js/bootstrap.bundle.min.js' %}"></script>
+<script src="{% static 'layout/assets/plugins/jquery-easing/jquery.easing.min.js' %}"></script>
+<script src="{% static 'layout/assets/plugins/slick-slider/slick.js' %}"></script>
+<script src="{% static 'layout/assets/plugins/slim-scroll/jquery.slimscroll.min.js' %}"></script>
+
+<!-- Angular Tooltip -->
+<script src="{% static 'layout/assets/plugins/angular-tooltip/angular.js' %}"></script>
+<script src="{% static 'layout/assets/plugins/angular-tooltip/angular-tooltips.js' %}"></script>
+<script src="{% static 'layout/assets/plugins/angular-tooltip/index.js' %}"></script>
+
+<!-- Morris.js charts -->
+<script src="{% static 'layout/assets/plugins/raphael/raphael.min.js' %}"></script>
+<script src="{% static 'layout/assets/plugins/morris.js/morris.min.js' %}"></script>
+
+<!-- Custom Chart JavaScript -->
+<script src="{% static 'layout/js/custom/dashboard/dashboard.js' %}"></script>
+
+<!-- Core Template Scripts -->
+<script src="{% static 'layout/js/adminfier.js' %}"></script>
+<script src="{% static 'layout/js/jQuery.style.switcher.js' %}"></script>
+<script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
+
+<!-- JS personnalisé pour tous les templates -->
+{% block extra_js %}{% endblock %}
+
+<!-- Menu toggle scripts -->
+<script>
+    function openRightMenu() {
+        document.getElementById("rightMenu").style.display = "block";
+    }
+    function closeRightMenu() {
+        document.getElementById("rightMenu").style.display = "none";
+    }
+</script>
+
+<!-- Style switcher -->
+<script>
+    $(document).ready(function() {
+        $('#styleOptions').styleSwitcher();
+    });
+</script>
+
+<!-- Dropdown init -->
+<script>
+    $('.dropdown-toggle').dropdown();
+</script>
+
+</div> <!-- Fin du wrapper -->
+</body>
+<script>
+  $(document).ready(function() {
+      $('.select2').select2();
+  });
+</script>
+
+
+</html>

@@ -1,0 +1,188 @@
+{% extends "layout/base.html" %}
+{% load static %}
+
+{% block title %}
+    {% if is_update %}Modifier une Ordonnance{% else %}Nouvelle Ordonnance{% endif %}
+{% endblock %}
+
+{% block extra_head %}
+<link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
+<style>
+    .select2-container .select2-selection--multiple {
+        min-height: 38px;
+        border: 1px solid #ced4da;
+    }
+</style>
+{% endblock %}
+
+{% block content %}
+<div class="container mt-5">
+    <div class="card">
+        <div class="card-header bg-busy">
+            <h1 class="text-white text-center">
+                {% if is_update %}Modification de l'ordonnance{% else %}Enregistrement de l'ordonnance{% endif %}
+            </h1>
+        </div>
+        <div class="card-body">
+            {% if messages %}
+                {% for message in messages %}
+                    <div class="alert {% if message.tags == 'error' %}alert-danger{% else %}alert-success{% endif %} alert-dismissible fade show" role="alert">
+                        {{ message }}
+                        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                    </div>
+                {% endfor %}
+            {% endif %}
+
+            <form method="POST" enctype="multipart/form-data">
+                {% csrf_token %}
+
+                <div class="row mb-3">
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            {{ form.numOrdonnance.label_tag }}
+                            {{ form.numOrdonnance }}
+                            {% if form.numOrdonnance.errors %}
+                                <div class="text-danger">{{ form.numOrdonnance.errors }}</div>
+                            {% endif %}
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            {{ form.dateOrdonnance.label_tag }}
+                            {{ form.dateOrdonnance }}
+                            {% if form.dateOrdonnance.errors %}
+                                <div class="text-danger">{{ form.dateOrdonnance.errors }}</div>
+                            {% endif %}
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row mb-3">
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            {{ form.numRg.label_tag }}
+                            {{ form.numRg }}
+                            {% if form.numRg.errors %}
+                                <div class="text-danger">{{ form.numRg.errors }}</div>
+                            {% endif %}
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            {{ form.fichier.label_tag }}
+                            {{ form.fichier }}
+                            <small class="form-text text-muted">Taille max: 5MB, Format: PDF</small>
+                            {% if form.fichier.errors %}
+                                <div class="text-danger">{{ form.fichier.errors }}</div>
+                            {% endif %}
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row mb-3">
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            {{ form.president.label_tag }}
+                            {{ form.president }}
+                            {% if form.president.errors %}
+                                <div class="text-danger">{{ form.president.errors }}</div>
+                            {% endif %}
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            {{ form.greffier.label_tag }}
+                            {{ form.greffier }}
+                            {% if form.greffier.errors %}
+                                <div class="text-danger">{{ form.greffier.errors }}</div>
+                            {% endif %}
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row mb-3">
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            {{ form.demanderesses.label_tag }}
+                            {{ form.demanderesses }}
+                            {% if form.demanderesses.errors %}
+                                <div class="text-danger">{{ form.demanderesses.errors }}</div>
+                            {% endif %}
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            {{ form.defenderesses.label_tag }}
+                            {{ form.defenderesses }}
+                            {% if form.defenderesses.errors %}
+                                <div class="text-danger">{{ form.defenderesses.errors }}</div>
+                            {% endif %}
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row mb-3">
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            {{ form.avocatsDemanderesses.label_tag }}
+                            {{ form.avocatsDemanderesses }}
+                            {% if form.avocatsDemanderesses.errors %}
+                                <div class="text-danger">{{ form.avocatsDemanderesses.errors }}</div>
+                            {% endif %}
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            {{ form.avocatsDefenderesses.label_tag }}
+                            {{ form.avocatsDefenderesses }}
+                            {% if form.avocatsDefenderesses.errors %}
+                                <div class="text-danger">{{ form.avocatsDefenderesses.errors }}</div>
+                            {% endif %}
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form-group mb-3">
+                    {{ form.objet.label_tag }}
+                    {{ form.objet }}
+                    {% if form.objet.errors %}
+                        <div class="text-danger">{{ form.objet.errors }}</div>
+                    {% endif %}
+                </div>
+
+                <button type="submit" class="btn {% if is_update %}btn-warning{% else %}btn-success{% endif %}">
+                    <i class="fas {% if is_update %}fa-edit{% else %}fa-save{% endif %} me-1"></i>
+                    {% if is_update %}Modifier{% else %}Enregistrer{% endif %}
+                </button>
+            </form>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block extra_js %}
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
+<script>
+$(document).ready(function() {
+    // Initialiser Select2 pour les champs d'avocats
+    $('select[multiple]').select2({
+        placeholder: "Recherchez ou sélectionnez un ou plusieurs avocats",
+        allowClear: true,
+        width: '100%'
+    });
+
+    // Script pour afficher un spinner lors du traitement OCR
+    const form = document.querySelector('form');
+    const submitBtn = form.querySelector('button[type="submit"]');
+    const pdfInput = document.querySelector('input[type="file"]');
+    
+    form.addEventListener('submit', function() {
+        if (pdfInput.files.length > 0) {
+            submitBtn.disabled = true;
+            submitBtn.innerHTML = '<span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span> Traitement OCR en cours...';
+        }
+    });
+});
+</script>
+{% endblock %}

@@ -1,0 +1,116 @@
+{% extends "layout/base.html" %}
+{% load static %}
+
+{% block title %}Détail du Jugement{% endblock %}
+
+{% block content %}
+<div class="container mt-5">
+    <div class="card shadow-lg">
+        <div class="card-header bg-primary text-white">
+            <h3 class="mb-0 text-white"> Détail complet du Jugement</h3>
+        </div>
+
+        <div class="card-body fs-5">
+
+            <!-- Informations principales -->
+            <div class="row">
+                <div class="col-md-6 mb-3">
+                    <h3 class="text-muted">Numéro du Jugement</h3>
+                    <h3 class="  fs-5">{{ jugement.numJugement }}</h3>
+                </div>
+                <div class="col-md-6 mb-3">
+                    <h3 class="text-muted">Numéro RG</h3>
+                    <h3 class=" fs-5">{{ jugement.numRg }}</h3>
+                </div>
+            </div>
+
+            <!-- Date et intervenants -->
+            <div class="row">
+                <div class="col-md-4 mb-3">
+                    <h3 class="text-muted">Date du Jugement</h3>
+                    <h3 class=" bg-info text-dark fs-5">{{ jugement.dateJugement }}</h3>
+                </div>
+                <div class="col-md-4 mb-3">
+                    <h3 class="text-muted">Président</h3>
+                    <h3 class=" bg-primary fs-5">{{ jugement.president }}</h3>
+                </div>
+                <div class="col-md-4 mb-3">
+                    <h3 class="text-muted">Greffier</h3>
+                    <h3 class=" bg-success fs-5">{{ jugement.greffier }}</h3>
+                </div>
+            </div>
+
+            <!-- Juge consulaire -->
+            <div class="mb-3">
+                <h3 class="text-muted">Juge Consulaire 1</h3>
+                <h3 class=" bg-warning text-dark fs-5">{{ jugement.jugeConsulaire1 }}</h3>
+            </div>
+              <div class="mb-3">
+                <h3 class="text-muted">Juge Consulaire 2</h3>
+                <h3 class=" bg-warning text-dark fs-5">{{ jugement.jugeConsulaire2 }}</h3>
+            </div>
+
+            <!-- Parties concernées -->
+            <div class="row">
+                <div class="col-md-6 mb-3">
+                    <h3 class="text-muted">Demanderesse</h3>
+                    <p class="card-text fs-5">{{ jugement.demanderesses }}</p>
+                </div>
+                <div class="col-md-6 mb-3">
+                    <h3 class="text-muted">Défenderesse</h3>
+                    <p class="card-text fs-5">{{ jugement.defenderesses }}</p>
+                </div>
+            </div>
+
+            <!-- Avocats des Parties concernées  -->
+            <div class="row">
+                <div class="col-md-6 mb-3">
+                    <h3 class="text-muted">Avocats Demanderesses</h3>
+                    <p class="card-text fs-5">{{ jugement.avocatsDemanderesses }}</p>
+                </div>
+                <div class="col-md-6 mb-3">
+                    <h3 class="text-muted"> Avocats Défenderesses</h3>
+                    <p class="card-text fs-5">{{ jugement.avocatsDefenderesses }}</p>
+                </div>
+            </div>
+
+           
+
+            <!-- Objet -->
+            <div class="mb-4">
+                <h3 class="text-muted">Objet du Jugement</h3>
+                <div class="border rounded p-3 bg-light fs-5">
+                    {{ jugement.objet }}
+                </div>
+            </div>
+
+            <!-- PDF -->
+            <div class="mb-3">
+                <h3 class="text-muted">Décision</h3>
+                <a href="{{ jugement.decision.url }}"  class="btn btn-lg btn-outline-primary">
+                    Voir le dispositif
+                </a>
+            </div>
+        </div>
+
+        <div class="card-footer bg-light text-end">
+                    <div class="row mb-4">
+                <div class="col-2">
+                    <a href="{% url 'recherche_jugement' %}" class="btn btn-lg btn-secondary">
+                        <i class="fas fa-arrow-circle-left me-2"></i>Retour à la recherche
+                    </a>
+                </div>
+                <div class="col-8 text-center">
+                    <!-- Espace central vide ou pour d'autres éléments -->
+                </div>
+                <div class="col-2 text-end">
+                    <a href="{% url 'liste_jugement' %}" class="btn btn-lg btn-secondary">
+                        <i class="fas fa-arrow-circle-left me-2"></i>Retour à la liste
+                    </a>
+                </div>
+            </div>
+            
+        </div>
+    </div>
+</div>
+{% endblock %}

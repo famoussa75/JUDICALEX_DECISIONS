@@ -1,0 +1,116 @@
+{% extends "layout/base.html" %}
+
+{% block title %}Liste des ordonnances{% endblock %}
+
+{% block content %}
+<div class="container-fluid mt-5">
+    {% if messages %}
+        {% for message in messages %}
+            <div class="alert {% if message.tags == 'error' %}alert-danger{% else %}alert-success{% endif %}">
+                {{ message }}
+            </div>
+        {% endfor %}
+    {% endif %}
+
+    <h2 class="text-center text-success mb-4">Liste des ordonnances enregistrées</h2>
+
+    <div class="table-responsive">
+        <table class="table table-bordered table-hover align-middle">
+            <thead class="table-dark">
+                <tr>
+                    <th>N°</th>
+                    <th>Numéro Ordonnance</th>
+                    <th>Numéro RG</th>
+                    <th>Date</th>
+                    <th>Président</th>
+                    <th>Greffier</th>
+                    <th>Demanderesses</th>
+                    <th>Défenderesses</th>
+                    <th>Avocats Demanderesses</th>
+                    <th>Avocats Défenderesses</th>
+                    <th>Objet</th>
+                    <th>Fichier</th>
+                    <th>Utilisateur</th>
+                    <th>Action</th>
+                </tr>
+            </thead>
+            <tbody>
+              {% for ordonnance in page_obj %}
+<tr>
+    <td>{{ forloop.counter|add:page_obj.start_index|add:-1 }}</td>
+    <td>{{ ordonnance.numOrdonnance }}</td>
+    <td>{{ ordonnance.numRg }}</td>
+    <td>{{ ordonnance.dateOrdonnance|date:"d/m/Y" }}</td>
+    <td>{{ ordonnance.president }}</td>
+    <td>{{ ordonnance.greffier }}</td>
+    <td>{{ ordonnance.demanderesses }}</td>
+    <td>{{ ordonnance.defenderesses }}</td>
+    <td>{{ ordonnance.avocatsDemanderesses }}</td>
+    <td>{{ ordonnance.avocatsDefenderesses }}</td>
+    <td>{{ ordonnance.objet|truncatewords:20 }}</td>
+    <td>
+        {% if ordonnance.fichier %}
+            <a href="{{ ordonnance.fichier.url }}"  class="btn btn-sm btn-outline-primary">Voir le fichier</a>
+        {% else %}
+            <span class="text-muted">Aucun fichier</span>
+        {% endif %}
+    </td>
+    <td>
+        {% if ordonnance.idAccount %}
+            {{ ordonnance.idAccount.first_name }} {{ ordonnance.idAccount.last_name }}
+        {% else %}
+            <span class="text-muted">Utilisateur supprimé</span>
+        {% endif %}
+    </td>
+    <td class="text-center">
+        <a href="{% url 'detail_ordonnance' ordonnance.idOrdonnance %}" class="btn btn-sm btn-info"><i class="fas fa-eye"></i></a>
+        <a href="{% url 'edit_ordonnance' ordonnance.idOrdonnance %}" class="btn btn-sm btn-warning"><i class="fas fa-edit"></i></a>
+    </td>
+</tr>
+{% empty %}
+<tr>
+    <td colspan="14" class="text-center text-muted">Aucune ordonnance trouvée</td>
+</tr>
+{% endfor %}
+            </tbody>
+        </table>
+    </div>
+
+    <!-- Pagination -->
+    <nav aria-label="Page navigation">
+        <ul class="pagination justify-content-center">
+            {% if page_obj.has_previous %}
+                <li class="page-item">
+                    <a class="page-link" href="?page={{ page_obj.previous_page_number }}">Précédent</a>
+                </li>
+            {% else %}
+                <li class="page-item disabled">
+                    <span class="page-link">Précédent</span>
+                </li>
+            {% endif %}
+
+            {% for num in page_obj.paginator.page_range %}
+                {% if page_obj.number == num %}
+                    <li class="page-item active">
+                        <span class="page-link">{{ num }}</span>
+                    </li>
+                {% else %}
+                    <li class="page-item">
+                        <a class="page-link" href="?page={{ num }}">{{ num }}</a>
+                    </li>
+                {% endif %}
+            {% endfor %}
+
+            {% if page_obj.has_next %}
+                <li class="page-item">
+                    <a class="page-link" href="?page={{ page_obj.next_page_number }}">Suivant</a>
+                </li>
+            {% else %}
+                <li class="page-item disabled">
+                    <span class="page-link">Suivant</span>
+                </li>
+            {% endif %}
+        </ul>
+    </nav>
+</div>
+{% endblock %}

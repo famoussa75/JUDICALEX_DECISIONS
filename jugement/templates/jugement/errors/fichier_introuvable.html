@@ -1,0 +1,14 @@
+{% extends "layout/base.html" %}
+
+{% block title %}Fichier introuvable - Jugement{% endblock %}
+
+{% block content %}
+<div class="container mt-5 text-center">
+    <h1 class="text-danger">Erreur 404 - Fichier introuvable</h1>
+    <p>Le fichier de jugement demandé n’existe pas :</p>
+    <p class="text-muted"><code>{{ path }}</code></p>
+    <a href="{% url 'liste_jugement' %}" class="btn btn-outline-primary mt-3">
+        Retour à la liste des jugements
+    </a>
+</div>
+{% endblock %}

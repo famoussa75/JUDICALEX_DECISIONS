@@ -1,0 +1,125 @@
+{% extends "layout/base.html" %}
+
+{% block title %}Liste des jugements{% endblock %}
+
+{% block content %}
+<div class="container-fluid mt-5">
+    {% if messages %}
+        {% for message in messages %}
+            <div class="alert {% if message.tags == 'error' %}alert-danger{% else %}alert-success{% endif %}">
+                {{ message }}
+            </div>
+        {% endfor %}
+    {% endif %}
+
+    <h2 class="text-center text-success mb-4">Liste des jugements enregistrés</h2>
+
+    <div class="table-responsive">
+        <table class="table table-bordered table-hover align-middle">
+            <thead class="table-dark">
+                <tr>
+                    <th>N°</th>
+                    <th>Numéro Jugement</th>
+                    <th>Numéro RG</th>
+                    <th>Date Jugement</th>
+                    <th>Président</th>
+                    <th>Juge Consulaire 1</th>
+                    <th>Juge Consulaire 2</th>
+                    <th>Greffier</th>
+                    <th>Demanderesses</th>
+                    <th>Défenderesses</th>
+                    <th>Avocats Demanderesses</th>
+                    <th>Avocats Défenderesses</th>
+                    <th>Objet</th>
+                    <th>Décision</th>
+                    <th>Utilisateur</th>
+                    <th>Action</th>
+                </tr>
+            </thead>
+            <tbody>
+              {% for jugement in page_obj %}
+<tr>
+    <td>{{ forloop.counter|add:page_obj.start_index|add:-1 }}</td>
+    <td>{{ jugement.numJugement }}</td>
+    <td>{{ jugement.numRg }}</td>
+    <td>{{ jugement.dateJugement|date:"d/m/Y" }}</td>
+    <td>{{ jugement.president }}</td>
+    <td>{{ jugement.jugeConsulaire1 }}</td>
+    <td>{{ jugement.jugeConsulaire2 }}</td>
+    <td>{{ jugement.greffier }}</td>
+    <td>{{ jugement.demanderesses }}</td>
+    <td>{{ jugement.defenderesses }}</td>
+    <td>{{ jugement.avocatsDemanderesses }}</td>
+    <td>{{ jugement.avocatsDefenderesses }}</td>
+    <td>{{ jugement.objet|truncatewords:20 }}</td>
+   <td>
+    {% if jugement.decision %}
+      
+            <!-- Fichier stocké localement -->
+            <a href="{{ jugement.decision.url }}"  class="btn btn-sm btn-outline-primary">Voir le dispositif</a>
+      
+    {% else %}
+        <span class="text-muted">Aucun fichier</span>
+    {% endif %}
+</td>
+
+    <td>
+        {% if jugement.idAccount %}
+            {{ jugement.idAccount.first_name }} {{ jugement.idAccount.last_name }}
+        {% else %}
+            <span class="text-muted">Utilisateur supprimé</span>
+        {% endif %}
+    </td>
+    <td class="text-center">
+        <a href="{% url 'detail_jugement' jugement.idJugement %}" class="btn btn-sm btn-info"><i class="fas fa-eye"></i></a>
+        <a href="{% url 'edit_jugement' jugement.idJugement %}" class="btn btn-sm btn-warning"><i class="fas fa-edit"></i></a>
+    </td>
+</tr>
+{% empty %}
+<tr>
+    <td colspan="16" class="text-center text-muted">Aucun jugement trouvé</td>
+</tr>
+{% endfor %}
+
+            </tbody>
+        </table>
+    </div>
+
+    <!-- Pagination -->
+    <nav aria-label="Page navigation">
+        <ul class="pagination justify-content-center">
+            {% if page_obj.has_previous %}
+                <li class="page-item">
+                    <a class="page-link" href="?page={{ page_obj.previous_page_number }}">Précédent</a>
+                </li>
+            {% else %}
+                <li class="page-item disabled">
+                    <span class="page-link">Précédent</span>
+                </li>
+            {% endif %}
+
+            {% for num in page_obj.paginator.page_range %}
+                {% if page_obj.number == num %}
+                    <li class="page-item active">
+                        <span class="page-link">{{ num }}</span>
+                    </li>
+                {% else %}
+                    <li class="page-item">
+                        <a class="page-link" href="?page={{ num }}">{{ num }}</a>
+                    </li>
+                {% endif %}
+            {% endfor %}
+
+            {% if page_obj.has_next %}
+                <li class="page-item">
+                    <a class="page-link" href="?page={{ page_obj.next_page_number }}">Suivant</a>
+                </li>
+            {% else %}
+                <li class="page-item disabled">
+                    <span class="page-link">Suivant</span>
+                </li>
+            {% endif %}
+        </ul>
+    </nav>
+</div>
+{% endblock %}

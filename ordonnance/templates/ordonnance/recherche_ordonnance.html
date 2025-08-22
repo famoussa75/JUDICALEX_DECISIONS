@@ -1,0 +1,48 @@
+{% extends "layout/base.html" %}
+{% load static %}
+
+{% block title %}Recherche Ordonnances{% endblock %}
+
+{% block content %}
+<div class="container mt-5">
+    <h3 class="mb-4">Recherche d'Ordonnances</h3>
+
+    <form method="get" action="{% url 'recherche_ordonnance' %}">
+        <div class="row g-2">
+            <div class="col-md-10 col-sm-9 col-12">
+                <input type="text" name="q" class="form-control" placeholder="Tapez un mot clé..." value="{{ query }}">
+            </div>
+            <div class="col-md-2 col-sm-3 col-12">
+                <button type="submit" class="btn btn-primary w-100">Rechercher</button>
+            </div>
+        </div>
+    </form>
+
+    {% if resultats %}
+        <h5 class="mt-4">
+            {{ total_resultats }} ordonnance(s) trouvée(s) pour :
+            <strong>{{ query }}</strong>
+        </h5>
+
+        <ul class="list-group mt-3">
+            {% for ordonnance in resultats %}
+                <li class="list-group-item">
+                    <div class="row">
+                        <div class="col-6">
+                             <strong>Ordonnance N°:</strong> {{ ordonnance.numOrdonance }} |
+                             <strong>Numéro RG:</strong> {{ ordonnance.numRg }} |
+                             <strong>Date:</strong> {{ ordonnance.dateOrdonnance }} <br>
+                             <a href="{% url 'detail_ordonnance' ordonnance.idOrdonnance %}" class="btn btn-sm btn-outline-primary mt-2">Voir le détail</a>
+                        </div>
+                        <div class="col-6">
+                             <strong>Nombre d'occurrences du mot clé :</strong> {{ ordonnance.occurences|floatformat:0 }} <strong>x</strong>
+                        </div>
+                    </div>
+                </li>
+            {% endfor %}
+        </ul>
+    {% elif query %}
+        <p class="mt-4 text-danger">Aucune ordonnance trouvée pour : <strong>{{ query }}</strong></p>
+    {% endif %}
+</div>
+{% endblock %}

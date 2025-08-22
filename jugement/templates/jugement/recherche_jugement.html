@@ -1,0 +1,48 @@
+{% extends "layout/base.html" %}
+{% load static %}
+
+{% block title %}Recherche Jugements{% endblock %}
+
+{% block content %}
+<div class="container mt-5">
+    <h3 class="mb-4">Recherche de Jugements</h3>
+
+    <form method="get" action="{% url 'recherche_jugement' %}">
+        <div class="row g-2">
+            <div class="col-md-10 col-sm-9 col-12">
+                <input type="text" name="q" class="form-control" placeholder="Tapez un mot clé..." value="{{ query }}">
+            </div>
+            <div class="col-md-2 col-sm-3 col-12">
+                <button type="submit" class="btn btn-primary w-100">Rechercher</button>
+            </div>
+        </div>
+    </form>
+
+    {% if resultats %}
+        <h5 class="mt-4">
+            {{ total_resultats }} jugement(s) trouvé(s) pour :
+            <strong>{{ query }}</strong>
+        </h5>
+
+        <ul class="list-group mt-3">
+            {% for jugement in resultats %}
+                <li class="list-group-item">
+                    <div class="row">
+                        <div class="col-6">
+                             <strong>Jugement N°:</strong> {{ jugement.numJugement }} |
+                             <strong>Numéro RG:</strong> {{ jugement.numRg }} |
+                             <strong>Date:</strong> {{ jugement.dateJugement }} <br>
+                             <a href="{% url 'detail_jugement' jugement.idJugement %}" class="btn btn-sm btn-outline-primary mt-2">Voir le détail</a>
+                        </div>
+                        <div class="col-6">
+                             <strong>Nombre d'occurrences du mot clé :</strong> {{ jugement.occurences|floatformat:0 }} <strong>x</strong>
+                        </div>
+                    </div>
+                </li>
+            {% endfor %}
+        </ul>
+    {% elif query %}
+        <p class="mt-4 text-danger">Aucun jugement trouvé pour : <strong>{{ query }}</strong></p>
+    {% endif %}
+</div>
+{% endblock %}

@@ -1,0 +1,343 @@
+{% load static %}
+
+		<!-- ===============================
+			Navigation Start
+		====================================-->
+		<nav class="navbar navbar-expand-lg navbar-light fixed-top" id="mainNav">
+			
+			<!-- Start Header -->
+			<header class="header-logo">
+				<a class="nav-link text-center mr-lg-3 hidden-xs" id="sidenavToggler"><i class="ti-align-left"></i></a>
+				<a class="navbar-brand" href="index-2.html">Jugement</a>
+			</header>
+			<!-- End Header -->
+			
+			<button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
+			  <span class="ti-align-left"></span>
+			</button>
+			
+			<div class="collapse navbar-collapse" id="navbarResponsive">
+				 
+				<!-- =============== Start Side Menu ============== -->
+				<div class="navbar-side">
+				  <ul class="navbar-nav side-navbar" id="exampleAccordion">
+                     <!-- Start Dashboard-->
+					<li class="nav-item" data-toggle="tooltip" data-placement="right" title="Settings">
+					  <a class="nav-link"  href="{% url 'dashbord' %}">
+						<i class="ti ti-home"></i>
+						<span class="nav-link-text">Dashboard</span>
+					  </a>
+					</li>
+					<!-- End Dashboard -->
+
+                    <!-- Start Jugement -->
+					<li class="nav-item" data-toggle="tooltip" data-placement="right" title="Messages">
+					  <a class="nav-link nav-link-collapse collapsed" data-toggle="collapse" href="#messages" data-parent="#exampleAccordion">
+						<i class="ti i-cl-4 ti-desktop"></i>
+						<span class="nav-link-text">Jugement</span>
+					  </a>
+					  <ul class="sidenav-second-level collapse" id="messages">
+						
+						<li>
+						  <a href="{% url 'nouveau_jugement' %}">Nouveau Jugement</a>
+						</li>
+						
+						<li>
+						  <a href="{% url 'liste_jugement' %}">Liste Jugement</a>
+						</li>
+						
+					  </ul>
+					  
+					</li>
+					
+					<!-- Start recherche_jugement -->
+					<li class="nav-item" data-toggle="tooltip" data-placement="right" title="Report">
+					  <a class="nav-link" href="{% url 'recherche_jugement' %}">
+						<i class="fa fa-search"></i>
+						<span class="nav-link-text">Recherche_jugement</span>
+					  </a>
+					</li>
+					<!-- End recherche_jugement -->
+					
+						<!-- Start Ordonnance -->
+					<li class="nav-item" data-toggle="tooltip" data-placement="right" title="Advance Apps">
+					  <a class="nav-link nav-link-collapse collapsed" data-toggle="collapse" href="#advance-apps" data-parent="#exampleAccordion">
+						<i class="ti i-cl-5 ti ti-desktop"></i>
+						<span class="nav-link-text">Ordonnance </span>
+					  </a>
+					  <ul class="sidenav-second-level collapse" id="advance-apps">
+						
+						<li>
+						  <a href="{% url 'nouveau_ordonnance' %}">Nouveau Ordonnance</a>
+						</li>
+						
+						<li>
+						  <a href="{% url 'liste_ordonnance' %}">Liste Ordonnance</a>
+						</li>
+						
+					  </ul>
+					  
+					</li>
+					<!-- End Ordonnance -->
+					
+						<!-- Start recherche_ordonnance -->
+					<li class="nav-item" data-toggle="tooltip" data-placement="right" title="Report">
+					  <a class="nav-link" href="{% url 'recherche_ordonnance' %}">
+						<i class="fa fa-search"></i>
+						<span class="nav-link-text">recherche_ordonnance</span>
+					  </a>
+					</li>
+					<!-- End recherche_ordonnance -->
+					 
+				  </ul>
+			  </div>
+			 <!-- =============== End Side Menu ============== -->
+			  
+			  <!-- =============== Search Bar ============== -->
+			  <ul class="navbar-nav ml-left">
+				<li class="nav-item">
+				  <form class="form-inline my-2 my-lg-0 mr-lg-2">
+					<div class="input-group">
+						<span class="input-group-btn">
+							<button class="btn btn-primary" type="button">
+							  <i class="ti-search"></i>
+							</button>
+						</span>
+					  <input class="form-control" type="text" placeholder="Type In TO Search">
+					</div>
+				  </form>
+				</li>
+			  </ul>
+			  <!-- =============== End Search Bar ============== -->
+			  
+			  <!-- =============== Header Rightside Menu ============== -->
+			  <ul class="navbar-nav ml-auto">
+			  
+				<!-- Messages -->
+				<li class="nav-item dropdown">
+					 <a class="nav-link dropdown-toggle mr-lg-3 a-topbar__nav a-nav" id="messagesDropdown" href="#" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+						<i class="ti-email"></i>
+						<span class="a-nav__link-badge a-badge a-badge--pink">3</span>
+						<span class="hidden-lg hidden-md mrg-l-10">New Notification</span>
+					 </a>
+					 <div class="dropdown-menu animated flipInX" aria-labelledby="messagesDropdown">
+						<div class="top-header-dropdown text-center pink-bg">
+							<span class="a-dropdown--title">3 New</span>
+							<span class="a-dropdown--subtitle">User Messages</span>
+						</div>
+						<div class="ground-list ground-hover-list" id="message-box">
+							<div class="ground ground-list-single">
+								<a href="#">
+									<img class="ground-avatar" src="assets/dist/img/user-1.jpg" alt="...">
+									<span class="profile-status bg-online pull-right"></span>
+								</a>
+
+								<div class="ground-content">
+									<h6><a href="#">Maryam Amiri</a></h6>
+									<small class="text-fade">Co-Founder</small>
+								</div>
+
+								<div class="ground-right">
+									<span class="small">Online</span>
+								</div>
+							</div>
+							
+							<div class="ground ground-list-single">
+								<a href="#">
+									<img class="ground-avatar" src= "assets/img/user-2.jpg" alt="...">
+									<span class="profile-status bg-offline pull-right"></span>
+								</a>
+
+								<div class="ground-content">
+									<h6><a href="#">Maryam Amiri</a></h6>
+									<small class="text-fade">Co-Founder</small>
+								</div>
+
+								<div class="ground-right">
+									<span class="small">10 Min Ago</span>
+								</div>
+							</div>
+							
+							<div class="ground ground-list-single">
+								<a href="#">
+									<img class="ground-avatar" src="assets/dist/img/user-3.jpg" alt="...">
+									<span class="profile-status bg-working pull-right"></span>
+								</a>
+
+								<div class="ground-content">
+									<h6><a href="#">Maryam Amiri</a></h6>
+									<small class="text-fade">Co-Founder</small>
+								</div>
+
+								<div class="ground-right">
+									<span class="small">20 Min Ago</span>
+								</div>
+							</div>
+							
+							<div class="ground ground-list-single">
+								<a href="#">
+									<img class="ground-avatar" src="assets/dist/img/user-4.jpg" alt="...">
+									<span class="profile-status bg-busy pull-right"></span>
+								</a>
+
+								<div class="ground-content">
+									<h6><a href="#">Maryam Amiri</a></h6>
+									<small class="text-fade">Co-Founder</small>
+								</div>
+
+								<div class="ground-right">
+									<span class="small">18 Min Ago</span>
+								</div>
+							</div>
+							
+							<div class="ground ground-list-single">
+								<a href="#">
+									<img class="ground-avatar" src="assets/dist/img/user-5.jpg" alt="...">
+									<span class="profile-status bg-online pull-right"></span>
+								</a>
+
+								<div class="ground-content">
+									<h6><a href="#">Maryam Amiri</a></h6>
+									<small class="text-fade">Co-Founder</small>
+								</div>
+
+								<div class="ground-right">
+									<span class="small">Online</span>
+								</div>
+							</div>
+						</div>
+						 <a class="dropdown-item view-all" href="#">View all Messages</a>
+					</div>
+				</li>
+				<!-- End Messages -->
+				
+				<!-- Notification -->
+				<li class="nav-item dropdown">
+				
+					<a class="nav-link dropdown-toggle mr-lg-3 a-topbar__nav a-nav" id="alertsDropdown" href="#" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+						<i class="ti-bell"></i>
+						<span class="a-nav__link-badge a-badge a-badge--accent a-animate-blink">6</span>
+						<span class="hidden-lg hidden-md mrg-l-10">New Notification</span>
+					</a>
+					  
+					<div class="dropdown-menu animated flipInX" aria-labelledby="alertsDropdown">
+						<div class="top-header-dropdown text-center accent-bg">
+							<span class="a-dropdown--title">6 New</span>
+							<span class="a-dropdown--subtitle">User Notifications</span>
+						</div>
+						
+						<div class="ground-list ground-hover-list" id="notification-box">
+							<div class="ground ground-list-single">
+								<a href="#">
+									<div class="btn-circle-40 btn-success"><i class="ti-calendar"></i></div>
+								</a>
+
+								<div class="ground-content">
+									<h6><a href="#">Maryam Amiri</a></h6>
+									<small class="text-fade">Check New Admin Dashboard..</small>
+									<span class="small">Just Now</span>
+								</div>
+							</div>
+								
+							<div class="ground ground-list-single">
+								<a href="#">
+									<div class="btn-circle-40 btn-danger"><i class="ti-calendar"></i></div>
+								</a>
+
+								<div class="ground-content">
+									<h6><a href="#">Maryam Amiri</a></h6>
+									<small class="text-fade">You can Customize..</small>
+									<span class="small">02 Min Ago</span>
+								</div>
+							</div>
+								
+							<div class="ground ground-list-single">
+								<a href="#">
+									<div class="btn-circle-40 btn-info"><i class="ti-calendar"></i></div>
+								</a>
+
+								<div class="ground-content">
+									<h6><a href="#">Maryam Amiri</a></h6>
+									<small class="text-fade">Need Responsive Business Tem...</small>
+									<span class="small">10 Min Ago</span>
+								</div>
+							</div>
+								
+							<div class="ground ground-list-single">
+								<a href="#">
+									<div class="btn-circle-40 btn-warning"><i class="ti-calendar"></i></div>
+								</a>
+
+								<div class="ground-content">
+									<h6><a href="#">Maryam Amiri</a></h6>
+									<small class="text-fade">Next Meeting on Tuesday..</small>
+									<span class="small">15 Min Ago</span>
+								</div>
+							</div>
+								
+							<div class="ground ground-list-single">
+								<a href="#">
+									<div class="btn-circle-40 btn-purple"><i class="ti-calendar"></i></div>
+								</a>
+
+								<div class="ground-content">
+									<h6><a href="#">Maryam Amiri</a></h6>
+									<small class="text-fade">You can Change Your Pass..</small>
+									<span class="small">18 Min Ago</span>
+								</div>
+							</div>
+						</div>
+						<a class="dropdown-item view-all" href="#">View all Notifications</a>
+					</div>
+				</li>
+				<!-- End Notification -->
+				
+				<li class="nav-item dropdown">
+					<a class="nav-link dropdown-toggle mr-lg-0 user-img a-topbar__nav a-nav" id="userDropdown" href="#" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+						<div class="header-user-pic">
+							{% if request.user.is_authenticated and request.user.photo %}
+								<img src="{{ request.user.photo.url }}" alt="user-img" width="36" class="img-circle">
+							{% else %}
+								<img src="{% static 'layout/assets/img/user-10.jpg' %}" alt="default-img" width="36" class="img-circle">
+							{% endif %}
+						</div>
+					</a>
+				  
+					<ul class="dropdown-menu dropdown-user animated flipInX" aria-labelledby="userDropdown">
+						<li class="top-header-dropdown green-bg">
+							<div class="header-user-pic">
+								{% if request.user.is_authenticated and request.user.photo %}
+									<img src="{{ request.user.photo.url }}" alt="user-img" width="36" class="img-circle">
+								{% else %}
+									<img src="{% static 'layout/assets/img/user-10.jpg' %}" alt="default-img" width="36" class="img-circle">
+								{% endif %}
+							</div>
+
+							<div class="header-user-det">
+								<span class="a-dropdown--title">{{ request.user.get_full_name|default:request.user.username }}</span>
+							</div>
+
+						</li>
+						<li><a class="dropdown-item" href="#"><i class="ti-user"></i> My Profile</a></li>
+						<li><a class="dropdown-item" href="#"><i class="ti-wallet"></i> My Balance</a></li>
+						<li><a class="dropdown-item" href="#"><i class="ti-email"></i> Inbox</a></li>
+						<li><a class="dropdown-item" href="#"><i class="ti-settings"></i> Account Setting</a></li>
+						<li class="dropdown-item">
+							<form method="post" action="{% url 'logout' %}" style="display: inline;">
+								{% csrf_token %}
+								<button type="submit" class="dropdown-item" style="background: none; border: none; padding: 0; margin: 0;">
+								<i class="fa fa-power-off"></i> Logout
+								</button>
+							</form>
+						</li>
+
+					</ul>
+				</li>
+			  </ul>
+			  <!-- =============== End Header Rightside Menu ============== -->
+			</div>
+			<button class="w3-button w3-teal w3-xlarge w3-right" onclick="openRightMenu()"><i class="spin fa fa-cog" aria-hidden="true"></i></button>
+		</nav>
+		<!-- =====================================================
+		                    End Navigations
+		======================================================= -->

@@ -1,0 +1,87 @@
+{% extends "layout/base.html" %}
+{% load static %}
+
+{% block title %}Dashboard{% endblock %}
+
+{% block content %}
+				<!-- Title & Breadcrumbs-->
+				<div class="row page-breadcrumbs">
+					<div class="col-md-12 align-self-center">
+						<h4 class="theme-cl">Dashboard</h4>
+						
+					</div>
+				</div>
+				<!-- Title & Breadcrumbs-->
+				
+				<!-- row -->
+				<div class="row">
+					
+					<div class="col-md-3 col-sm-6">
+						<div class="card">
+							<div class="card-body">
+								<div class="float-right">
+									<i class="icon ti-user blue-cl font-30"></i>
+								</div>
+								<div class="widget-detail">
+									<h4 class="mb-1">372</h4>
+									<span>New Users</span>
+								</div>
+							</div>
+						</div>
+					</div>
+					
+					<div class="col-md-3 col-sm-6">
+						<div class="card">
+							<div class="card-body">
+								<div class="float-right">
+									<i class="ti-shopping-cart-full red-cl font-30"></i>
+								</div>
+								<div class="widget-detail">
+									<h4 class="mb-1">158</h4>
+									<span>New Order Placed</span>
+								</div>
+							</div>
+						</div>
+					</div>
+					
+					<div class="col-md-3 col-sm-6">
+						<div class="card">
+							<div class="card-body">
+								<div class="float-right">
+									<i class="icon ti-medall yellow-cl font-30"></i>
+								</div>
+								<div class="widget-detail">
+									<h4 class="mb-1">$2,874</h4>
+									<span>Monthly Profits</span>
+								</div>
+							</div>
+						</div>
+					</div>
+					
+					<div class="col-md-3 col-sm-6">
+						<div class="card">
+							<div class="card-body">
+								<div class="float-right">
+									<i class="icon ti-briefcase green-cl font-30"></i>
+								</div>
+								<div class="widget-detail">
+									<h4 class="mb-1">512</h4>
+									<span>Delivery Processing</span>
+								</div>
+							</div>
+						</div>
+					</div>
+					
+				</div>
+				<!-- /row -->
+				
+				<!-- row -->
+				<div class="row">
+				
+                {% endblock %}
+
+{% block extra_js %}
+    <!-- Scripts spécifiques à la page -->
+    <script src="{% static 'layout/assets/plugins/morris.js/morris.min.js' %}"></script>
+    <script src="{% static 'layout/assets/dist/js/custom/dashboard/dashboard.js' %}"></script>
+{% endblock %}

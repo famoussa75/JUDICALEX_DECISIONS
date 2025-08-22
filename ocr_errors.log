@@ -1,0 +1,133 @@
+ERROR 2025-08-11 12:45:39,946 views Erreur grave lors de l'extraction OCR
+Traceback (most recent call last):
+  File "C:\Users\HP\Desktop\decisionFinale\env\Lib\site-packages\pdf2image\pdf2image.py", line 581, in pdfinfo_from_path
+    proc = Popen(command, env=env, stdout=PIPE, stderr=PIPE)
+  File "C:\Program Files\WindowsApps\PythonSoftwareFoundation.Python.3.13_3.13.1776.0_x64__qbz5n2kfra8p0\Lib\subprocess.py", line 1039, in __init__
+    self._execute_child(args, executable, preexec_fn, close_fds,
+    ~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+                        pass_fds, cwd, env,
+                        ^^^^^^^^^^^^^^^^^^^
+    ...<5 lines>...
+                        gid, gids, uid, umask,
+                        ^^^^^^^^^^^^^^^^^^^^^^
+                        start_new_session, process_group)
+                        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Program Files\WindowsApps\PythonSoftwareFoundation.Python.3.13_3.13.1776.0_x64__qbz5n2kfra8p0\Lib\subprocess.py", line 1554, in _execute_child
+    hp, ht, pid, tid = _winapi.CreateProcess(executable, args,
+                       ~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^
+                             # no special security
+                             ^^^^^^^^^^^^^^^^^^^^^
+    ...<4 lines>...
+                             cwd,
+                             ^^^^
+                             startupinfo)
+                             ^^^^^^^^^^^^
+FileNotFoundError: [WinError 2] Le fichier spécifié est introuvable
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "C:\Users\HP\Desktop\decisionFinale\jugement\views.py", line 83, in extraction_text
+    images = convert_from_bytes(
+        pdf_bytes,
+    ...<3 lines>...
+        fmt='jpeg'
+    )
+  File "C:\Users\HP\Desktop\decisionFinale\env\Lib\site-packages\pdf2image\pdf2image.py", line 359, in convert_from_bytes
+    return convert_from_path(
+        f.name,
+    ...<20 lines>...
+        hide_annotations=hide_annotations,
+    )
+  File "C:\Users\HP\Desktop\decisionFinale\env\Lib\site-packages\pdf2image\pdf2image.py", line 127, in convert_from_path
+    page_count = pdfinfo_from_path(
+                 ~~~~~~~~~~~~~~~~~^
+        pdf_path, userpw, ownerpw, poppler_path=poppler_path
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )["Pages"]
+    ^
+  File "C:\Users\HP\Desktop\decisionFinale\env\Lib\site-packages\pdf2image\pdf2image.py", line 607, in pdfinfo_from_path
+    raise PDFInfoNotInstalledError(
+        "Unable to get page count. Is poppler installed and in PATH?"
+    )
+pdf2image.exceptions.PDFInfoNotInstalledError: Unable to get page count. Is poppler installed and in PATH?
+ERROR 2025-08-11 12:45:39,951 views Erreur lors de l'extraction du texte: Échec de l'extraction OCR: Unable to get page count. Is poppler installed and in PATH?
+ERROR 2025-08-11 13:01:48,013 views Erreur OCR page 1: [WinError 5] Accès refusé
+ERROR 2025-08-11 13:01:48,414 views Erreur OCR page 2: [WinError 5] Accès refusé
+ERROR 2025-08-11 13:01:48,817 views Erreur OCR page 3: [WinError 5] Accès refusé
+ERROR 2025-08-11 13:01:49,213 views Erreur OCR page 4: [WinError 5] Accès refusé
+ERROR 2025-08-11 13:01:49,614 views Erreur OCR page 5: [WinError 5] Accès refusé
+ERROR 2025-08-11 13:01:50,022 views Erreur OCR page 6: [WinError 5] Accès refusé
+ERROR 2025-08-11 13:01:50,418 views Erreur OCR page 7: [WinError 5] Accès refusé
+ERROR 2025-08-11 13:01:50,888 views Erreur OCR page 8: [WinError 5] Accès refusé
+ERROR 2025-08-11 13:01:51,291 views Erreur OCR page 9: [WinError 5] Accès refusé
+ERROR 2025-08-11 14:27:56,626 views Erreur OCR page 1: [WinError 5] Accès refusé
+ERROR 2025-08-11 14:27:57,013 views Erreur OCR page 2: [WinError 5] Accès refusé
+ERROR 2025-08-11 14:27:57,409 views Erreur OCR page 3: [WinError 5] Accès refusé
+ERROR 2025-08-11 14:27:57,805 views Erreur OCR page 4: [WinError 5] Accès refusé
+ERROR 2025-08-11 14:27:58,198 views Erreur OCR page 5: [WinError 5] Accès refusé
+ERROR 2025-08-11 14:27:58,609 views Erreur OCR page 6: [WinError 5] Accès refusé
+ERROR 2025-08-11 14:27:58,990 views Erreur OCR page 7: [WinError 5] Accès refusé
+ERROR 2025-08-11 14:27:59,419 views Erreur OCR page 8: [WinError 5] Accès refusé
+ERROR 2025-08-11 14:27:59,786 views Erreur OCR page 9: [WinError 5] Accès refusé
+INFO 2025-08-11 15:27:32,963 views Page 1 traitée avec OCR
+INFO 2025-08-11 15:27:34,143 views Page 2 traitée avec OCR
+INFO 2025-08-11 15:27:35,288 views Page 3 traitée avec OCR
+INFO 2025-08-11 15:27:36,386 views Page 4 traitée avec OCR
+INFO 2025-08-11 15:27:37,502 views Page 5 traitée avec OCR
+INFO 2025-08-11 15:27:38,666 views Page 6 traitée avec OCR
+INFO 2025-08-11 15:27:39,749 views Page 7 traitée avec OCR
+INFO 2025-08-11 15:27:40,832 views Page 8 traitée avec OCR
+INFO 2025-08-11 15:27:41,680 views Page 9 traitée avec OCR
+INFO 2025-08-11 16:05:26,616 views Page 1 traitée avec OCR
+INFO 2025-08-11 16:05:27,716 views Page 2 traitée avec OCR
+INFO 2025-08-11 16:05:28,835 views Page 3 traitée avec OCR
+INFO 2025-08-11 16:05:29,977 views Page 4 traitée avec OCR
+INFO 2025-08-11 16:05:31,013 views Page 5 traitée avec OCR
+INFO 2025-08-11 16:05:32,188 views Page 6 traitée avec OCR
+INFO 2025-08-11 16:05:33,307 views Page 7 traitée avec OCR
+INFO 2025-08-11 16:05:34,476 views Page 8 traitée avec OCR
+INFO 2025-08-11 16:05:35,285 views Page 9 traitée avec OCR
+INFO 2025-08-11 16:53:22,051 views Page 1 traitée avec OCR
+INFO 2025-08-11 16:53:23,583 views Page 2 traitée avec OCR
+INFO 2025-08-11 16:53:24,778 views Page 3 traitée avec OCR
+INFO 2025-08-11 16:53:26,188 views Page 4 traitée avec OCR
+INFO 2025-08-11 16:53:27,608 views Page 5 traitée avec OCR
+INFO 2025-08-11 16:53:28,662 views Page 6 traitée avec OCR
+INFO 2025-08-11 17:59:08,556 views Page 1 traitée avec OCR
+INFO 2025-08-11 17:59:09,771 views Page 2 traitée avec OCR
+INFO 2025-08-11 17:59:11,069 views Page 3 traitée avec OCR
+INFO 2025-08-11 17:59:12,270 views Page 4 traitée avec OCR
+INFO 2025-08-11 17:59:13,493 views Page 5 traitée avec OCR
+INFO 2025-08-11 17:59:14,657 views Page 6 traitée avec OCR
+INFO 2025-08-11 17:59:15,712 views Page 7 traitée avec OCR
+INFO 2025-08-11 17:59:16,481 views Page 8 traitée avec OCR
+INFO 2025-08-13 10:13:05,925 views Page 1 traitée avec OCR
+INFO 2025-08-13 10:13:07,004 views Page 2 traitée avec OCR
+INFO 2025-08-13 10:13:08,210 views Page 3 traitée avec OCR
+INFO 2025-08-13 10:13:09,350 views Page 4 traitée avec OCR
+INFO 2025-08-13 10:13:10,453 views Page 5 traitée avec OCR
+INFO 2025-08-13 10:13:11,599 views Page 6 traitée avec OCR
+INFO 2025-08-13 10:13:12,788 views Page 7 traitée avec OCR
+INFO 2025-08-13 10:13:13,949 views Page 8 traitée avec OCR
+INFO 2025-08-13 10:13:14,802 views Page 9 traitée avec OCR
+INFO 2025-08-13 11:36:29,435 views Page 1 traitée avec OCR
+INFO 2025-08-13 11:36:30,611 views Page 2 traitée avec OCR
+INFO 2025-08-13 11:36:31,882 views Page 3 traitée avec OCR
+INFO 2025-08-13 11:36:33,091 views Page 4 traitée avec OCR
+INFO 2025-08-13 11:36:34,302 views Page 5 traitée avec OCR
+INFO 2025-08-13 11:36:35,503 views Page 6 traitée avec OCR
+INFO 2025-08-13 11:36:36,612 views Page 7 traitée avec OCR
+INFO 2025-08-13 11:36:37,463 views Page 8 traitée avec OCR
+INFO 2025-08-13 12:15:10,634 views Page 1 traitée avec OCR
+INFO 2025-08-13 12:15:12,126 views Page 2 traitée avec OCR
+INFO 2025-08-13 12:15:13,434 views Page 3 traitée avec OCR
+INFO 2025-08-13 12:15:14,855 views Page 4 traitée avec OCR
+INFO 2025-08-13 12:15:16,225 views Page 5 traitée avec OCR
+INFO 2025-08-13 12:15:17,304 views Page 6 traitée avec OCR
+INFO 2025-08-14 11:04:43,098 views Page 1 traitée avec OCR
+INFO 2025-08-14 11:04:44,192 views Page 2 traitée avec OCR
+INFO 2025-08-14 11:04:45,202 views Page 3 traitée avec OCR
+INFO 2025-08-14 11:04:46,378 views Page 4 traitée avec OCR
+INFO 2025-08-14 11:04:47,374 views Page 5 traitée avec OCR
+INFO 2025-08-14 11:04:48,118 views Page 6 traitée avec OCR

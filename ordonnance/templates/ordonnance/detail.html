@@ -1,0 +1,112 @@
+{% extends "layout/base.html" %}
+{% load static %}
+
+{% block title %}Détail de l'Ordonnance{% endblock %}
+
+{% block content %}
+<div class="container mt-5">
+    <div class="card shadow-lg">
+        <div class="card-header bg-primary text-white">
+            <h3 class="mb-0 text-white">Détail complet de l'Ordonnance</h3>
+        </div>
+
+        <div class="card-body fs-5">
+
+            <!-- Informations principales -->
+            <div class="row">
+                <div class="col-md-6 mb-3">
+                    <h3 class="text-muted">Numéro de l'Ordonnance</h3>
+                    <h3 class="fs-5">{{ ordonnance.numOrdonnance }}</h3>
+                </div>
+                <div class="col-md-6 mb-3">
+                    <h3 class="text-muted">Numéro RG</h3>
+                    <h3 class="fs-5">{{ ordonnance.numRg }}</h3>
+                </div>
+            </div>
+
+            <!-- Date et intervenants -->
+            <div class="row">
+                <div class="col-md-4 mb-3">
+                    <h3 class="text-muted">Date de l'Ordonnance</h3>
+                    <h3 class="bg-info text-dark fs-5">{{ ordonnance.dateOrdonnance }}</h3>
+                </div>
+                <div class="col-md-4 mb-3">
+                    <h3 class="text-muted">Président</h3>
+                    <h3 class="bg-primary text-white fs-5">{{ ordonnance.president }}</h3>
+                </div>
+                <div class="col-md-4 mb-3">
+                    <h3 class="text-muted">Greffier</h3>
+                    <h3 class="bg-success text-white fs-5">{{ ordonnance.greffier }}</h3>
+                </div>
+            </div>
+
+            <!-- Parties concernées -->
+            <div class="row">
+                <div class="col-md-6 mb-3">
+                    <h3 class="text-muted">Demanderesse</h3>
+                    <p class="card-text fs-5">{{ ordonnance.demanderesses }}</p>
+                </div>
+                <div class="col-md-6 mb-3">
+                    <h3 class="text-muted">Défenderesse</h3>
+                    <p class="card-text fs-5">{{ ordonnance.defenderesses }}</p>
+                </div>
+            </div>
+
+            <!-- Avocats des parties -->
+            <div class="row">
+                <div class="col-md-6 mb-3">
+                    <h3 class="text-muted">Avocats Demanderesses</h3>
+                    {% for avocat in ordonnance.avocats_demanderesses.all %}
+                        <h3 class="bg-light text-dark border fs-6 me-1 mb-1">{{ avocat }}</h3>
+                    {% empty %}
+                        <p class="text-muted fs-6">Aucun avocat renseigné</p>
+                    {% endfor %}
+                </div>
+                <div class="col-md-6 mb-3">
+                    <h3 class="text-muted">Avocats Défenderesses</h3>
+                    {% for avocat in ordonnance.avocats_defenderesses.all %}
+                        <h3 class="bg-light text-dark border fs-6 me-1 mb-1">{{ avocat }}</h3>
+                    {% empty %}
+                        <p class="text-muted fs-6">Aucun avocat renseigné</p>
+                    {% endfor %}
+                </div>
+            </div>
+
+            <!-- Objet -->
+            <div class="mb-4">
+                <h3 class="text-muted">Objet de l'Ordonnance</h3>
+                <div class="border rounded p-3 bg-light fs-5">
+                    {{ ordonnance.objet }}
+                </div>
+            </div>
+
+            <!-- PDF -->
+            <div class="mb-3">
+                <h3 class="text-muted">Décision</h3>
+                <a href="{{ ordonnance.fichier.url }}" class="btn btn-lg btn-outline-primary">
+                    Voir le dispositif
+                </a>
+            </div>
+        </div>
+
+        <!-- Pied de page -->
+        <div class="card-footer bg-light text-end">
+            <div class="row mb-4">
+                <div class="col-2">
+                    <a href="{% url 'recherche_ordonnance' %}" class="btn btn-lg btn-secondary">
+                        <i class="fas fa-arrow-circle-left me-2"></i>Retour à la recherche
+                    </a>
+                </div>
+                <div class="col-8 text-center">
+                    <!-- Espace central vide -->
+                </div>
+                <div class="col-2 text-end">
+                    <a href="{% url 'liste_ordonnance' %}" class="btn btn-lg btn-secondary">
+                        <i class="fas fa-arrow-circle-left me-2"></i>Retour à la liste
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

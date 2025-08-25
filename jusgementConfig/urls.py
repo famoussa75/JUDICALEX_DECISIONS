@@ -19,8 +19,33 @@ from django.urls import path, include, re_path
 from django.conf import settings
 from django.conf.urls.static import static
 from django.shortcuts import redirect
+from django.views.static import serve
+import os
+
 from jugement.views import fichier_introuvable_jugement
 from ordonnance.views import fichier_introuvable_ordonnance
+
+def serve_media_or_custom_404(request, path, document_root):
+    """
+    Vue personnalisée pour servir les fichiers média s'ils existent,
+    ou rediriger vers une page d'erreur personnalisée s'ils n'existent pas.
+    """
+    file_path = os.path.join(document_root, path)
+    
+    # Vérifier si le fichier existe physiquement
+    if os.path.exists(file_path):
+        # Servir le fichier normalement
+        return serve(request, path, document_root=document_root)
+    else:
+        # Rediriger vers la vue d'erreur appropriée
+        if path.startswith('decisions/'):
+            return fichier_introuvable_jugement(request, path)
+        elif path.startswith('ordonnances/'):
+            return fichier_introuvable_ordonnance(request, path)
+        else:
+            # Pour les autres types de fichiers, utiliser la 404 par défaut
+            from django.http import Http404
+            raise Http404("Fichier non trouvé")
 
 urlpatterns = [
     path('', lambda request: redirect('login')),
@@ -32,8 +57,11 @@ urlpatterns = [
 ]
 
 if settings.DEBUG:
+    # Remplacer le service statique standard par notre gestion personnalisée
     urlpatterns += [
-        re_path(r'^media/decisions/(?P<path>.*)$', fichier_introuvable_jugement),
-        re_path(r'^media/ordonnances/(?P<path>.*)$', fichier_introuvable_ordonnance),
-    ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
-
+        re_path(r'^media/(?P<path>.*)$', 
+                lambda request, path: serve_media_or_custom_404(request, path, settings.MEDIA_ROOT)),
+    ]
+else:
+    # En production, servir les fichiers statiques normalement
+    urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

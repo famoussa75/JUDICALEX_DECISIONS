@@ -22,7 +22,7 @@ class OrdonnanceForm(forms.ModelForm):
             'fichier': "Fichier PDF",
         }
         widgets = {
-            'numOrdonnance': forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Exemple : 001'}),
+            'numOrdonnance': forms.TextInput(attrs={'class': 'form-control'}),
             'numRg': forms.TextInput(attrs={'class': 'form-control'}),
             'dateOrdonnance': forms.DateInput(
                 attrs={'class': 'form-control', 'type': 'date'},
@@ -63,11 +63,4 @@ class OrdonnanceForm(forms.ModelForm):
                 raise ValidationError("Seuls les fichiers PDF sont acceptés")
         return fichier
 
-    def clean_numOrdonnance(self):
-        num = self.cleaned_data['numOrdonnance']
-        queryset = Ordonnance.objects.filter(numOrdonnance=num)
-        if self.instance and self.instance.pk:
-            queryset = queryset.exclude(pk=self.instance.pk)
-        if queryset.exists():
-            raise ValidationError("Ce numéro d'ordonnance existe déjà")
-        return num
+  

@@ -12,7 +12,7 @@
         {% endfor %}
     {% endif %}
 
-    <h2 class="text-center text-success mb-4">Liste des jugements enregistrés</h2>
+    <h2 class="text-center text-primary mb-4">Liste des jugements enregistrés</h2>
 
     <div class="table-responsive">
         <table class="table table-bordered table-hover align-middle">
@@ -56,7 +56,7 @@
     {% if jugement.decision %}
       
             <!-- Fichier stocké localement -->
-            <a href="{{ jugement.decision.url }}"  class="btn btn-sm btn-outline-primary">Voir le dispositif</a>
+            <a href="{{ jugement.decision.url }}"  class="btn btn-sm btn-outline-primary" >Voir le dispositif</a>
       
     {% else %}
         <span class="text-muted">Aucun fichier</span>

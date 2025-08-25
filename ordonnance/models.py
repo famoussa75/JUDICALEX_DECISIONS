@@ -14,7 +14,7 @@ class Ordonnance(models.Model):
     avocatsDemanderesses = models.TextField()
     avocatsDefenderesses = models.TextField()
     objet = models.TextField()
-    fichier = models.FileField(upload_to='ordonnance/')
+    fichier = models.FileField(upload_to='ordonnances/')
     ordonnance_text = models.TextField(blank=True, null=True) 
     idAccount = models.ForeignKey(Account, on_delete=models.CASCADE)
     created_at = models.DateTimeField(auto_now_add=True,null=True)

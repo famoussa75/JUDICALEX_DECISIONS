@@ -23,7 +23,7 @@ class JugementForm(forms.ModelForm):
             'jugement_text': "Texte intégral du jugement",
         }
         widgets = {
-            'numJugement': forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Exemple : 001'}),
+            'numJugement': forms.TextInput(attrs={'class': 'form-control'}),
             'numRg': forms.TextInput(attrs={'class': 'form-control'}),
             'dateJugement': forms.DateInput(
                 attrs={'class': 'form-control', 'type': 'date'},

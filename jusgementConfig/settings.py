@@ -110,6 +110,8 @@ import os
 MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 
+
+
 # Paramètre Poppler utilisé par pdf2image
 POPPLER_PATH = POPPLER_WINDOWS_PATH
 

@@ -5,6 +5,9 @@ from django.conf import settings
 from django.db.models import F, Value
 from django.db.models.functions import Length, Replace
 from django.core.paginator import Paginator
+from django.http import Http404
+from django.views.static import serve
+import os
 
 from .forms import OrdonnanceForm
 from .models import Ordonnance
@@ -18,14 +21,14 @@ import logging
 logger = logging.getLogger(__name__)
 
 # ----------------------------------------------------
-# AJOUT D’ORDONNANCE
+# AJOUT D'ORDONNANCE
 # ----------------------------------------------------
 @login_required
 def add_ordonnance(request):
     return _save_or_update_ordonnance(request)
 
 # ----------------------------------------------------
-# MODIFICATION D’ORDONNANCE
+# MODIFICATION D'ORDONNANCE
 # ----------------------------------------------------
 @login_required
 def edit_ordonnance(request, id):
@@ -150,11 +153,6 @@ def extraction_text(fichier):
 # ----------------------------------------------------
 # LISTE DES ORDONNANCES
 # ----------------------------------------------------
-from django.core.paginator import Paginator
-from django.contrib.auth.decorators import login_required
-from django.shortcuts import render
-from .models import Ordonnance
-
 @login_required
 def list_ordonnance(request):
     # On garde seulement select_related pour idAccount (ForeignKey)
@@ -170,11 +168,6 @@ def list_ordonnance(request):
 # ----------------------------------------------------
 # RECHERCHE
 # ----------------------------------------------------
-from django.shortcuts import render
-from django.db.models import F, Value
-from django.db.models.functions import Length, Replace
-from .models import Ordonnance
-
 def recherche_ordonnance(request):
     query = request.GET.get('q', '').strip()
     resultats = []
@@ -212,8 +205,10 @@ def detail_ordonnance(request, id):
     ordonnance = get_object_or_404(Ordonnance, idOrdonnance=id)
     return render(request, 'ordonnance/detail.html', {'ordonnance': ordonnance})
 
-from django.shortcuts import render
-
+# ----------------------------------------------------
+# GESTION DES FICHIERS INTROUVABLES
+# ----------------------------------------------------
 def fichier_introuvable_ordonnance(request, path):
     return render(request, "ordonnance/errors/fichier_introuvable.html", {"path": path})
+
 

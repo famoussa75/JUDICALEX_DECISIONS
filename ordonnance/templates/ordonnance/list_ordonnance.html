@@ -12,7 +12,7 @@
         {% endfor %}
     {% endif %}
 
-    <h2 class="text-center text-success mb-4">Liste des ordonnances enregistrées</h2>
+    <h2 class="text-center text-primary mb-4">Liste des ordonnances enregistrées</h2>
 
     <div class="table-responsive">
         <table class="table table-bordered table-hover align-middle">
@@ -49,11 +49,15 @@
     <td>{{ ordonnance.avocatsDefenderesses }}</td>
     <td>{{ ordonnance.objet|truncatewords:20 }}</td>
     <td>
-        {% if ordonnance.fichier %}
-            <a href="{{ ordonnance.fichier.url }}"  class="btn btn-sm btn-outline-primary">Voir le fichier</a>
+      {% if ordonnance.fichier %}
+        <a href="{{ ordonnance.fichier.url }}"  target="_blank" class="btn btn-sm btn-outline-primary">
+            Voir le fichier
+        </a>
+
         {% else %}
             <span class="text-muted">Aucun fichier</span>
         {% endif %}
+
     </td>
     <td>
         {% if ordonnance.idAccount %}

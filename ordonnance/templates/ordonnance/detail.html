@@ -52,23 +52,15 @@
                 </div>
             </div>
 
-            <!-- Avocats des parties -->
+          <!-- Avocats des Parties concernées  -->
             <div class="row">
                 <div class="col-md-6 mb-3">
                     <h3 class="text-muted">Avocats Demanderesses</h3>
-                    {% for avocat in ordonnance.avocats_demanderesses.all %}
-                        <h3 class="bg-light text-dark border fs-6 me-1 mb-1">{{ avocat }}</h3>
-                    {% empty %}
-                        <p class="text-muted fs-6">Aucun avocat renseigné</p>
-                    {% endfor %}
+                    <p class="card-text fs-5">{{ ordonnance.avocatsDemanderesses }}</p>
                 </div>
                 <div class="col-md-6 mb-3">
-                    <h3 class="text-muted">Avocats Défenderesses</h3>
-                    {% for avocat in ordonnance.avocats_defenderesses.all %}
-                        <h3 class="bg-light text-dark border fs-6 me-1 mb-1">{{ avocat }}</h3>
-                    {% empty %}
-                        <p class="text-muted fs-6">Aucun avocat renseigné</p>
-                    {% endfor %}
+                    <h3 class="text-muted"> Avocats Défenderesses</h3>
+                    <p class="card-text fs-5">{{ ordonnance.avocatsDefenderesses }}</p>
                 </div>
             </div>
 

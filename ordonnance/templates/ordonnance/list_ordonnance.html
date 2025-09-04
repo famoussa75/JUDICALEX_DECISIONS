@@ -1,9 +1,11 @@
 {% extends "layout/base.html" %}
+{% load static %}
 
 {% block title %}Liste des ordonnances{% endblock %}
 
 {% block content %}
 <div class="container-fluid mt-5">
+
     {% if messages %}
         {% for message in messages %}
             <div class="alert {% if message.tags == 'error' %}alert-danger{% else %}alert-success{% endif %}">
@@ -14,107 +16,226 @@
 
     <h2 class="text-center text-primary mb-4">Liste des ordonnances enregistrées</h2>
 
-    <div class="table-responsive">
-        <table class="table table-bordered table-hover align-middle">
-            <thead class="table-dark">
-                <tr>
-                    <th>N°</th>
-                    <th>Numéro Ordonnance</th>
-                    <th>Numéro RG</th>
-                    <th>Date</th>
-                    <th>Président</th>
-                    <th>Greffier</th>
-                    <th>Demanderesses</th>
-                    <th>Défenderesses</th>
-                    <th>Avocats Demanderesses</th>
-                    <th>Avocats Défenderesses</th>
-                    <th>Objet</th>
-                    <th>Fichier</th>
-                    <th>Utilisateur</th>
-                    <th>Action</th>
-                </tr>
-            </thead>
-            <tbody>
-              {% for ordonnance in page_obj %}
-<tr>
-    <td>{{ forloop.counter|add:page_obj.start_index|add:-1 }}</td>
-    <td>{{ ordonnance.numOrdonnance }}</td>
-    <td>{{ ordonnance.numRg }}</td>
-    <td>{{ ordonnance.dateOrdonnance|date:"d/m/Y" }}</td>
-    <td>{{ ordonnance.president }}</td>
-    <td>{{ ordonnance.greffier }}</td>
-    <td>{{ ordonnance.demanderesses }}</td>
-    <td>{{ ordonnance.defenderesses }}</td>
-    <td>{{ ordonnance.avocatsDemanderesses }}</td>
-    <td>{{ ordonnance.avocatsDefenderesses }}</td>
-    <td>{{ ordonnance.objet|truncatewords:20 }}</td>
-    <td>
-      {% if ordonnance.fichier %}
-        <a href="{{ ordonnance.fichier.url }}"  target="_blank" class="btn btn-sm btn-outline-primary">
-            Voir le fichier
-        </a>
+    <div class="row">
+        <!-- Partie liste -->
+        <div class="col-12" id="liste-col">
 
-        {% else %}
-            <span class="text-muted">Aucun fichier</span>
-        {% endif %}
+            <!-- Table sur desktop -->
+            <div class="table-responsive d-none d-md-block">
+                <table class="table table-bordered table-hover align-middle">
+                    <thead class="table-dark text-center">
+                        <tr>
+                            <th>N°</th>
+                            <th>Numéro Ordonnance</th>
+                            <th>Numéro RG</th>
+                            <th>Date</th>
+                            <th>Président</th>
+                            <th>Greffier</th>
+                            <th>Demanderesses</th>
+                            <th>Avocats Demanderesses</th>
+                            <th>Défenderesses</th>
+                            <th>Avocats Défenderesses</th>
+                            <th>Objet</th>
+                            <th>Fichier</th>
+                            <th>Utilisateur</th>
+                            <th>Action</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for ordonnance in page_obj %}
+                        <tr>
+                            <td>{{ forloop.counter|add:page_obj.start_index|add:-1 }}</td>
+                            <td>{{ ordonnance.numOrdonnance }}</td>
+                            <td>{{ ordonnance.numRg }}</td>
+                            <td>{{ ordonnance.dateOrdonnance|date:"d/m/Y" }}</td>
+                            <td>{{ ordonnance.president }}</td>
+                            <td>{{ ordonnance.greffier }}</td>
+                            <td>{{ ordonnance.demanderesses }}</td>
+                            <td>{{ ordonnance.avocatsDemanderesses }}</td>
+                            <td>{{ ordonnance.defenderesses }}</td>
+                            <td>{{ ordonnance.avocatsDefenderesses }}</td>
+                            <td>{{ ordonnance.objet }}</td>
+                            <td class="text-center">
+                                {% if ordonnance.fichier %}
+                                    <button 
+                                        class="btn btn-sm btn-outline-primary voir-pdf-btn"
+                                        data-url="{{ ordonnance.fichier.url }}"
+                                        data-num="{{ ordonnance.numOrdonnance }}"
+                                        data-date="{{ ordonnance.dateOrdonnance|date:'d/m/Y' }}">
+                                        Voir le fichier
+                                    </button>
+                                {% else %}
+                                    <span class="text-muted">Aucun fichier</span>
+                                {% endif %}
+                            </td>
+                            <td>
+                                {% if ordonnance.idAccount %}
+                                    {{ ordonnance.idAccount.first_name }} {{ ordonnance.idAccount.last_name }}
+                                {% else %}
+                                    <span class="text-muted">Utilisateur supprimé</span>
+                                {% endif %}
+                            </td>
+                            <td class="text-center">
+                                <a href="{% url 'detail_ordonnance' ordonnance.idOrdonnance %}" class="btn btn-sm btn-info"><i class="fas fa-eye"></i></a>
+                                <a href="{% url 'edit_ordonnance' ordonnance.idOrdonnance %}" class="btn btn-sm btn-warning"><i class="fas fa-edit"></i></a>
+                            </td>
+                        </tr>
+                        {% empty %}
+                        <tr>
+                            <td colspan="14" class="text-center text-muted">Aucune ordonnance trouvée</td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
 
-    </td>
-    <td>
-        {% if ordonnance.idAccount %}
-            {{ ordonnance.idAccount.first_name }} {{ ordonnance.idAccount.last_name }}
-        {% else %}
-            <span class="text-muted">Utilisateur supprimé</span>
-        {% endif %}
-    </td>
-    <td class="text-center">
-        <a href="{% url 'detail_ordonnance' ordonnance.idOrdonnance %}" class="btn btn-sm btn-info"><i class="fas fa-eye"></i></a>
-        <a href="{% url 'edit_ordonnance' ordonnance.idOrdonnance %}" class="btn btn-sm btn-warning"><i class="fas fa-edit"></i></a>
-    </td>
-</tr>
-{% empty %}
-<tr>
-    <td colspan="14" class="text-center text-muted">Aucune ordonnance trouvée</td>
-</tr>
-{% endfor %}
-            </tbody>
-        </table>
+            <!-- Cartes sur mobile -->
+            <div class="d-block d-md-none">
+                {% for ordonnance in page_obj %}
+                    <div class="card mb-3 shadow-sm">
+                        <div class="card-body">
+                            <h6 class="card-title">Ordonnance N° {{ ordonnance.numOrdonnance }}</h6>
+                            <p class="mb-1"><strong>RG :</strong> {{ ordonnance.numRg }}</p>
+                            <p class="mb-1"><strong>Date :</strong> {{ ordonnance.dateOrdonnance|date:"d/m/Y" }}</p>
+                            <p class="mb-1"><strong>Président :</strong> {{ ordonnance.president }}</p>
+                            <p class="mb-1"><strong>Greffier :</strong> {{ ordonnance.greffier }}</p>
+                            <p class="mb-1"><strong>Demanderesses :</strong> {{ ordonnance.demanderesses }}</p>
+                            <p class="mb-1"><strong>Avocats Demanderesses :</strong> {{ ordonnance.avocatsDemanderesses }}</p>
+                            <p class="mb-1"><strong>Défenderesses :</strong> {{ ordonnance.defenderesses }}</p>
+                            <p class="mb-1"><strong>Avocats Défenderesses :</strong> {{ ordonnance.avocatsDefenderesses }}</p>
+                            <p class="mb-1"><strong>Objet :</strong> {{ ordonnance.objet }}</p>
+
+                            <div class="mt-3 d-flex flex-wrap gap-2">
+                                {% if ordonnance.fichier %}
+                                    <button type="button" 
+                                            class="btn btn-sm btn-outline-primary voir-pdf-btn"
+                                            data-url="{{ ordonnance.fichier.url }}"
+                                            data-num="{{ ordonnance.numOrdonnance }}"
+                                            data-date="{{ ordonnance.dateOrdonnance|date:'d/m/Y' }}">
+                                        Voir le fichier
+                                    </button>
+                                {% else %}
+                                    <span class="text-muted">Aucun fichier</span>
+                                {% endif %}
+
+                                <a href="{% url 'detail_ordonnance' ordonnance.idOrdonnance %}" class="btn btn-sm btn-info"><i class="fas fa-eye"></i></a>
+                                <a href="{% url 'edit_ordonnance' ordonnance.idOrdonnance %}" class="btn btn-sm btn-warning"><i class="fas fa-edit"></i></a>
+                            </div>
+                        </div>
+                    </div>
+                {% empty %}
+                    <p class="text-center text-muted">Aucune ordonnance trouvée</p>
+                {% endfor %}
+            </div>
+
+            <!-- Pagination -->
+            <nav aria-label="Page navigation">
+                <ul class="pagination justify-content-center flex-wrap">
+                    {% if page_obj.has_previous %}
+                        <li class="page-item"><a class="page-link" href="?page={{ page_obj.previous_page_number }}">Précédent</a></li>
+                    {% else %}
+                        <li class="page-item disabled"><span class="page-link">Précédent</span></li>
+                    {% endif %}
+
+                    {% for num in page_obj.paginator.page_range %}
+                        <li class="page-item {% if page_obj.number == num %}active{% endif %}">
+                            <a class="page-link" href="?page={{ num }}">{{ num }}</a>
+                        </li>
+                    {% endfor %}
+
+                    {% if page_obj.has_next %}
+                        <li class="page-item"><a class="page-link" href="?page={{ page_obj.next_page_number }}">Suivant</a></li>
+                    {% else %}
+                        <li class="page-item disabled"><span class="page-link">Suivant</span></li>
+                    {% endif %}
+                </ul>
+            </nav>
+        </div>
+
+        <!-- Partie fichier PDF -->
+        <div class="col-md-6 d-none" id="pdf-col">
+            <div class="card">
+                <div class="card-header bg-primary text-white d-flex justify-content-between align-items-center">
+                    <h5 id="pdf-title">Fichier de l’ordonnance</h5>
+                    <div>
+                        <a href="#" id="download-pdf" class="btn btn-sm btn-success me-2" download><i class="fas fa-download"></i></a>
+                        <button class="btn btn-sm btn-light text-danger" id="close-pdf">X</button>
+                    </div>
+                </div>
+                <div class="card-body">
+                    <div id="pdf-viewer" style="width:100%; height:1100px; overflow:auto; background:#f8f9fa;"></div>
+                </div>
+            </div>
+        </div>
     </div>
-
-    <!-- Pagination -->
-    <nav aria-label="Page navigation">
-        <ul class="pagination justify-content-center">
-            {% if page_obj.has_previous %}
-                <li class="page-item">
-                    <a class="page-link" href="?page={{ page_obj.previous_page_number }}">Précédent</a>
-                </li>
-            {% else %}
-                <li class="page-item disabled">
-                    <span class="page-link">Précédent</span>
-                </li>
-            {% endif %}
-
-            {% for num in page_obj.paginator.page_range %}
-                {% if page_obj.number == num %}
-                    <li class="page-item active">
-                        <span class="page-link">{{ num }}</span>
-                    </li>
-                {% else %}
-                    <li class="page-item">
-                        <a class="page-link" href="?page={{ num }}">{{ num }}</a>
-                    </li>
-                {% endif %}
-            {% endfor %}
-
-            {% if page_obj.has_next %}
-                <li class="page-item">
-                    <a class="page-link" href="?page={{ page_obj.next_page_number }}">Suivant</a>
-                </li>
-            {% else %}
-                <li class="page-item disabled">
-                    <span class="page-link">Suivant</span>
-                </li>
-            {% endif %}
-        </ul>
-    </nav>
 </div>
+
+<!-- PDF.js -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/2.16.105/pdf.min.js"></script>
+<script>
+    const viewer = document.getElementById('pdf-viewer');
+    const pdfCol = document.getElementById('pdf-col');
+    const pdfTitle = document.getElementById('pdf-title');
+    const listeCol = document.getElementById('liste-col');
+    const closeBtn = document.getElementById('close-pdf');
+    const downloadBtn = document.getElementById('download-pdf');
+
+    function renderPDF(url) {
+        viewer.innerHTML = "";
+
+        fetch(url).then(response => {
+            const type = response.headers.get("Content-Type") || "";
+            if (!response.ok || !type.includes("pdf")) {
+                return response.text().then(html => {
+                    viewer.innerHTML = html;
+                });
+            }
+
+            return pdfjsLib.getDocument(url).promise.then(function(pdfDoc) {
+                for (let pageNum = 1; pageNum <= pdfDoc.numPages; pageNum++) {
+                    pdfDoc.getPage(pageNum).then(function(page) {
+                        const containerWidth = viewer.clientWidth;
+                        const viewport = page.getViewport({ scale: 1 });
+                        const scale = containerWidth / viewport.width;
+                        const scaledViewport = page.getViewport({ scale: scale });
+
+                        const canvas = document.createElement('canvas');
+                        canvas.classList.add("mb-3", "shadow-sm", "rounded");
+                        const ctx = canvas.getContext('2d');
+                        canvas.height = scaledViewport.height;
+                        canvas.width = scaledViewport.width;
+
+                        viewer.appendChild(canvas);
+                        page.render({ canvasContext: ctx, viewport: scaledViewport });
+                    });
+                }
+            });
+        }).catch(() => {
+            viewer.innerHTML = "<p class='text-danger'>Erreur lors du chargement du fichier.</p>";
+        });
+    }
+
+    document.querySelectorAll('.voir-pdf-btn').forEach(btn => {
+        btn.addEventListener('click', () => {
+            const url = btn.dataset.url;
+            const num = btn.dataset.num;
+            const date = btn.dataset.date;
+
+            pdfTitle.innerText = `Ordonnance N° ${num} (${date})`;
+
+            listeCol.classList.replace("col-12", "col-md-6");
+            pdfCol.classList.remove('d-none');
+
+            downloadBtn.href = url;
+            downloadBtn.setAttribute('download', `Ordonnance_${num}.pdf`);
+
+            renderPDF(url);
+        });
+    });
+
+    closeBtn.addEventListener('click', () => {
+        pdfCol.classList.add('d-none');
+        listeCol.classList.replace("col-md-6", "col-12");
+    });
+</script>
 {% endblock %}

@@ -5,12 +5,22 @@
 
 {% block content %}
 <div class="container mt-5">
-    <h3 class="mb-4">Recherche d'Ordonnances</h3>
 
-    <form method="get" action="{% url 'recherche_ordonnance' %}">
+    {% if messages %}
+        {% for message in messages %}
+            <div class="alert {% if message.tags == 'error' %}alert-danger{% else %}alert-success{% endif %} alert-dismissible fade show" role="alert">
+                {{ message }}
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+            </div>
+        {% endfor %}
+    {% endif %}
+
+    <h3 class="mb-4 text-center text-md-start">Recherche d'Ordonnances</h3>
+
+    <form method="get" action="{% url 'recherche_ordonnance' %}" class="mb-4">
         <div class="row g-2">
             <div class="col-md-10 col-sm-9 col-12">
-                <input type="text" name="q" class="form-control" placeholder="Tapez un mot clé..." value="{{ query }}">
+                <input type="text" name="q" class="form-control" placeholder="Tapez un mot clé ou une phrase..." value="{{ query }}">
             </div>
             <div class="col-md-2 col-sm-3 col-12">
                 <button type="submit" class="btn btn-primary w-100">Rechercher</button>
@@ -19,30 +29,45 @@
     </form>
 
     {% if resultats %}
-        <h5 class="mt-4">
-            {{ total_resultats }} ordonnance(s) trouvée(s) pour :
-            <strong>{{ query }}</strong>
+        <h5 class="mt-3 text-center text-md-start">
+            {{ total_resultats }} ordonnance(s) trouvée(s) pour : <strong>{{ query }}</strong>
         </h5>
 
-        <ul class="list-group mt-3">
-            {% for ordonnance in resultats %}
-                <li class="list-group-item">
-                    <div class="row">
-                        <div class="col-6">
-                             <strong>Ordonnance N°:</strong> {{ ordonnance.numOrdonance }} |
-                             <strong>Numéro RG:</strong> {{ ordonnance.numRg }} |
-                             <strong>Date:</strong> {{ ordonnance.dateOrdonnance }} <br>
-                             <a href="{% url 'detail_ordonnance' ordonnance.idOrdonnance %}" class="btn btn-sm btn-outline-primary mt-2">Voir le détail</a>
+        <form method="post" action="{% url 'traiter_selection_ordonnance' %}">
+            {% csrf_token %}
+            <ul class="list-group mt-3">
+                {% for ordonnance in resultats %}
+                    <li class="list-group-item">
+                        <div class="row g-2 align-items-center">
+                            <div class="col-2 col-sm-1 d-flex justify-content-center">
+                                <input class="form-check-input" type="checkbox" name="ordonnances_selectionnes" value="{{ ordonnance.idOrdonnance }}">
+                            </div>
+                            <div class="col-10 col-sm-8">
+                                <div class="d-flex flex-column flex-md-row flex-wrap gap-2">
+                                    <span><strong>Ordonnance N°:</strong> {{ ordonnance.numOrdonance }}</span>
+                                    <span><strong>Numéro RG:</strong> {{ ordonnance.numRg }}</span>
+                                    <span><strong>Date:</strong> {{ ordonnance.dateOrdonnance }}</span>
+                                </div>
+                                <a href="{% url 'detail_ordonnance' ordonnance.idOrdonnance %}" class="btn btn-sm btn-outline-primary mt-2">Voir le détail</a>
+                            </div>
+                            <div class="col-12 col-sm-3 mt-2 mt-sm-0 text-sm-end">
+                                <strong>Occurrences :</strong> {{ ordonnance.occurences|floatformat:0 }} x
+                            </div>
                         </div>
-                        <div class="col-6">
-                             <strong>Nombre d'occurrences du mot clé :</strong> {{ ordonnance.occurences|floatformat:0 }} <strong>x</strong>
-                        </div>
-                    </div>
-                </li>
-            {% endfor %}
-        </ul>
+                    </li>
+                {% endfor %}
+            </ul>
+
+            <div class="mt-3 text-center text-md-start">
+                <button type="submit" class="btn btn-success">Traiter la sélection</button>
+            </div>
+        </form>
+
     {% elif query %}
-        <p class="mt-4 text-danger">Aucune ordonnance trouvée pour : <strong>{{ query }}</strong></p>
+        <p class="mt-4 text-danger text-center text-md-start">
+            Aucune ordonnance trouvée pour : <strong>{{ query }}</strong>
+        </p>
     {% endif %}
+
 </div>
 {% endblock %}

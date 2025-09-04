@@ -7,4 +7,7 @@ urlpatterns = [
     path('list_jugement/', views.list_jugement, name='liste_jugement'),
     path('recherche-jugement/', views.recherche_jugement, name='recherche_jugement'),
     path('jugement/<int:id>/', views.detail_jugement, name='detail_jugement'),
+    path('selection/', views.traiter_selection, name='traiter_selection'),
+    path('jugement/<int:id>/pdf/', views.voir_pdf_jugement, name='voir_pdf_jugement'),
+
 ]

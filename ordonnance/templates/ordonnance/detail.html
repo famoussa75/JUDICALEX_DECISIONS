@@ -4,101 +4,201 @@
 {% block title %}Détail de l'Ordonnance{% endblock %}
 
 {% block content %}
-<div class="container mt-5">
-    <div class="card shadow-lg">
-        <div class="card-header bg-primary text-white">
-            <h3 class="mb-0 text-white">Détail complet de l'Ordonnance</h3>
+<div class="container-fluid mt-5">
+    <div class="row">
+        <!-- Partie Détails -->
+        <div class="col-12" id="detail-col">
+            <div class="card shadow-lg">
+                <div class="card-header bg-primary text-white text-center text-md-start">
+                    <h3 class="mb-0 text-white">Détail complet de l'Ordonnance</h3>
+                </div>
+
+                <div class="card-body fs-6 fs-md-5">
+                    <!-- Informations principales -->
+                    <div class="row">
+                        <div class="col-12 col-md-6 mb-3">
+                            <h6 class="text-muted">Numéro de l'Ordonnance</h6>
+                            <p class="fs-5">{{ ordonnance.numOrdonnance }}</p>
+                        </div>
+                        <div class="col-12 col-md-6 mb-3">
+                            <h6 class="text-muted">Numéro RG</h6>
+                            <p class="fs-5">{{ ordonnance.numRg }}</p>
+                        </div>
+                    </div>
+
+                    <!-- Date et intervenants -->
+                    <div class="row">
+                        <div class="col-12 col-md-4 mb-3">
+                            <h6 class="text-muted">Date de l'Ordonnance</h6>
+                            <p class="bg-info text-dark rounded px-2 py-1">{{ ordonnance.dateOrdonnance }}</p>
+                        </div>
+                        <div class="col-12 col-md-4 mb-3">
+                            <h6 class="text-muted">Président</h6>
+                            <p class="bg-primary text-white rounded px-2 py-1">{{ ordonnance.president }}</p>
+                        </div>
+                        <div class="col-12 col-md-4 mb-3">
+                            <h6 class="text-muted">Greffier</h6>
+                            <p class="bg-success text-white rounded px-2 py-1">{{ ordonnance.greffier }}</p>
+                        </div>
+                    </div>
+
+                    <!-- Parties concernées -->
+                    <div class="row">
+                        <div class="col-12 col-md-6 mb-3">
+                            <h6 class="text-muted">Demanderesse</h6>
+                            <p class="card-text fs-5">{{ ordonnance.demanderesses }}</p>
+                        </div>
+                        <div class="col-12 col-md-6 mb-3">
+                            <h6 class="text-muted">Défenderesse</h6>
+                            <p class="card-text fs-5">{{ ordonnance.defenderesses }}</p>
+                        </div>
+                    </div>
+
+                    <!-- Avocats -->
+                    <div class="row">
+                        <div class="col-12 col-md-6 mb-3">
+                            <h6 class="text-muted">Avocats Demanderesses</h6>
+                            <p class="card-text fs-5">{{ ordonnance.avocatsDemanderesses }}</p>
+                        </div>
+                        <div class="col-12 col-md-6 mb-3">
+                            <h6 class="text-muted">Avocats Défenderesses</h6>
+                            <p class="card-text fs-5">{{ ordonnance.avocatsDefenderesses }}</p>
+                        </div>
+                    </div>
+
+                    <!-- Objet -->
+                    <div class="mb-4">
+                        <h6 class="text-muted">Objet de l'Ordonnance</h6>
+                        <div class="border rounded p-3 bg-light fs-5">
+                            {{ ordonnance.objet }}
+                        </div>
+                    </div>
+
+                    <!-- Décision -->
+                    <div class="mb-3">
+                        <h6 class="text-muted">Décision</h6>
+                        {% if ordonnance.fichier %}
+                            <div class="d-flex flex-column flex-sm-row gap-2">
+                                <button type="button" 
+                                        class="btn btn-outline-primary voir-pdf-btn"
+                                        data-url="{% url 'voir_pdf_ordonnance' ordonnance.idOrdonnance %}"
+                                        data-num="{{ ordonnance.numOrdonnance }}"
+                                        data-date="{{ ordonnance.dateOrdonnance }}">
+                                    Voir le dispositif
+                                </button>
+                            </div>
+                        {% else %}
+                            <p class="text-danger">Aucun fichier PDF disponible.</p>
+                        {% endif %}
+                    </div>
+                    
+                </div>
+
+                <div class="card-footer bg-light">
+                    <div class="row g-2">
+                        <div class="col-12 col-md-6">
+                            <a href="{% url 'recherche_ordonnance' %}" class="btn btn-lg btn-secondary w-100">
+                                <i class="fas fa-arrow-circle-left me-2"></i>Retour à la recherche
+                            </a>
+                        </div>
+                        <div class="col-12 col-md-6">
+                            <a href="{% url 'liste_ordonnance' %}" class="btn btn-lg btn-secondary w-100">
+                                <i class="fas fa-arrow-circle-left me-2"></i>Retour à la liste
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
 
-        <div class="card-body fs-5">
-
-            <!-- Informations principales -->
-            <div class="row">
-                <div class="col-md-6 mb-3">
-                    <h3 class="text-muted">Numéro de l'Ordonnance</h3>
-                    <h3 class="fs-5">{{ ordonnance.numOrdonnance }}</h3>
+        <!-- Fichier  PDF -->
+        <div class="col-md-6 d-none" id="pdf-col">
+            <div class="card shadow-lg">
+                <div class="card-header bg-primary text-white d-flex justify-content-between align-items-center">
+                    <h5 id="pdf-title">Dispositif de l'ordonnance</h5>
+                    <div>
+                        <a href="#" id="download-pdf" class="btn btn-sm btn-success me-2" download>
+                            <i class="fas fa-download"></i>
+                        </a>
+                        <button class="btn btn-sm btn-light text-danger" id="close-pdf">X</button>
+                    </div>
                 </div>
-                <div class="col-md-6 mb-3">
-                    <h3 class="text-muted">Numéro RG</h3>
-                    <h3 class="fs-5">{{ ordonnance.numRg }}</h3>
-                </div>
-            </div>
-
-            <!-- Date et intervenants -->
-            <div class="row">
-                <div class="col-md-4 mb-3">
-                    <h3 class="text-muted">Date de l'Ordonnance</h3>
-                    <h3 class="bg-info text-dark fs-5">{{ ordonnance.dateOrdonnance }}</h3>
-                </div>
-                <div class="col-md-4 mb-3">
-                    <h3 class="text-muted">Président</h3>
-                    <h3 class="bg-primary text-white fs-5">{{ ordonnance.president }}</h3>
-                </div>
-                <div class="col-md-4 mb-3">
-                    <h3 class="text-muted">Greffier</h3>
-                    <h3 class="bg-success text-white fs-5">{{ ordonnance.greffier }}</h3>
-                </div>
-            </div>
-
-            <!-- Parties concernées -->
-            <div class="row">
-                <div class="col-md-6 mb-3">
-                    <h3 class="text-muted">Demanderesse</h3>
-                    <p class="card-text fs-5">{{ ordonnance.demanderesses }}</p>
-                </div>
-                <div class="col-md-6 mb-3">
-                    <h3 class="text-muted">Défenderesse</h3>
-                    <p class="card-text fs-5">{{ ordonnance.defenderesses }}</p>
-                </div>
-            </div>
-
-          <!-- Avocats des Parties concernées  -->
-            <div class="row">
-                <div class="col-md-6 mb-3">
-                    <h3 class="text-muted">Avocats Demanderesses</h3>
-                    <p class="card-text fs-5">{{ ordonnance.avocatsDemanderesses }}</p>
-                </div>
-                <div class="col-md-6 mb-3">
-                    <h3 class="text-muted"> Avocats Défenderesses</h3>
-                    <p class="card-text fs-5">{{ ordonnance.avocatsDefenderesses }}</p>
-                </div>
-            </div>
-
-            <!-- Objet -->
-            <div class="mb-4">
-                <h3 class="text-muted">Objet de l'Ordonnance</h3>
-                <div class="border rounded p-3 bg-light fs-5">
-                    {{ ordonnance.objet }}
-                </div>
-            </div>
-
-            <!-- PDF -->
-            <div class="mb-3">
-                <h3 class="text-muted">Décision</h3>
-                <a href="{{ ordonnance.fichier.url }}" class="btn btn-lg btn-outline-primary">
-                    Voir le dispositif
-                </a>
-            </div>
-        </div>
-
-        <!-- Pied de page -->
-        <div class="card-footer bg-light text-end">
-            <div class="row mb-4">
-                <div class="col-2">
-                    <a href="{% url 'recherche_ordonnance' %}" class="btn btn-lg btn-secondary">
-                        <i class="fas fa-arrow-circle-left me-2"></i>Retour à la recherche
-                    </a>
-                </div>
-                <div class="col-8 text-center">
-                    <!-- Espace central vide -->
-                </div>
-                <div class="col-2 text-end">
-                    <a href="{% url 'liste_ordonnance' %}" class="btn btn-lg btn-secondary">
-                        <i class="fas fa-arrow-circle-left me-2"></i>Retour à la liste
-                    </a>
+                <div class="card-body">
+                    <div id="pdf-viewer" style="width:100%; height:1000px; overflow:auto; background:#f8f9fa;"></div>
                 </div>
             </div>
         </div>
     </div>
 </div>
+
+<!-- PDF.js -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/2.16.105/pdf.min.js"></script>
+<script>
+    const viewer = document.getElementById('pdf-viewer');
+    const pdfCol = document.getElementById('pdf-col');
+    const pdfTitle = document.getElementById('pdf-title');
+    const detailCol = document.getElementById('detail-col');
+    const closeBtn = document.getElementById('close-pdf');
+    const downloadBtn = document.getElementById('download-pdf');
+
+    function renderPDF(url) {
+        viewer.innerHTML = "";
+
+        fetch(url).then(response => {
+            const type = response.headers.get("Content-Type") || "";
+            if (!response.ok || !type.includes("pdf")) {
+                return response.text().then(html => {
+                    viewer.innerHTML = html;
+                });
+            }
+
+            return pdfjsLib.getDocument(url).promise.then(function(pdfDoc) {
+                for (let pageNum = 1; pageNum <= pdfDoc.numPages; pageNum++) {
+                    pdfDoc.getPage(pageNum).then(function(page) {
+                        const containerWidth = viewer.clientWidth;
+                        const viewport = page.getViewport({ scale: 1 });
+                        const scale = containerWidth / viewport.width;
+                        const scaledViewport = page.getViewport({ scale: scale });
+
+                        const canvas = document.createElement('canvas');
+                        canvas.classList.add("mb-3", "shadow-sm", "rounded");
+                        const ctx = canvas.getContext('2d');
+                        canvas.height = scaledViewport.height;
+                        canvas.width = scaledViewport.width;
+
+                        viewer.appendChild(canvas);
+                        page.render({ canvasContext: ctx, viewport: scaledViewport });
+                    });
+                }
+            });
+        }).catch(() => {
+            viewer.innerHTML = "<p class='text-danger'>Erreur lors du chargement du fichier.</p>";
+        });
+    }
+
+    document.querySelectorAll('.voir-pdf-btn').forEach(btn => {
+        btn.addEventListener('click', () => {
+            const url = btn.dataset.url;
+            const num = btn.dataset.num;
+            const date = btn.dataset.date;
+
+            pdfTitle.innerText = `Dispositif de l'ordonnance N° ${num} (${date})`;
+
+            detailCol.classList.remove("col-12");
+            detailCol.classList.add("col-md-6");
+            pdfCol.classList.remove('d-none');
+
+            downloadBtn.href = url;
+            downloadBtn.setAttribute('download', `Ordonnance_${num}.pdf`);
+
+            renderPDF(url);
+        });
+    });
+
+    closeBtn.addEventListener('click', () => {
+        pdfCol.classList.add('d-none');
+        detailCol.classList.remove("col-md-6");
+        detailCol.classList.add("col-12");
+    });
+</script>
 {% endblock %}

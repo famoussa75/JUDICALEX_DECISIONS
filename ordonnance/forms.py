@@ -12,7 +12,7 @@ class OrdonnanceForm(forms.ModelForm):
             'numOrdonnance': "Numéro de l'ordonnance",
             'numRg': "Numéro RG",
             'dateOrdonnance': "Date de l'ordonnance",
-            'president': "Président du tribunal",
+            'president': "Président",
             'greffier': "Greffier",
             'demanderesses': "Demanderesses",
             'defenderesses': "Défenderesses",

@@ -1,8 +1,4 @@
-  
-  
-  <!DOCTYPE html>
-
-  
+<!DOCTYPE html>
 {% load static %}
 <html lang="en">
 <head>
@@ -12,7 +8,7 @@
 
     <title>Jugement {% block title %}{% endblock %}</title>
 
-    <!-- Bootstrap core CSS -->
+    <!-- Bootstrap core CSS (depuis tes static) -->
     <link href="{% static 'layout/assets/plugins/bootstrap/css/bootstrap.min.css' %}" rel="stylesheet">
 
     <!-- Font Awesome -->
@@ -37,90 +33,89 @@
     <!-- Color Skins -->
     <link rel="stylesheet" href="{% static 'layout/css/skins/default.css' %}">
 
-    {% block extra_css %} {% endblock %}
-    <!-- Dans base.html par exemple -->
-<link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+    {% block extra_css %}{% endblock %}
 
-
+    <!-- Select2 & FontAwesome depuis CDN -->
+    <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
 </head>
-
 
 <body class="fixed-nav sticky-footer red-skin" id="page-top">
     {% include 'layout/navbar.html' %}
 
     <div class="content-wrapper">
         <div class="container-fluid">
-            {% block content %}
-            
-            
-            {% endblock %}
+            {% block content %}{% endblock %}
         </div>
     </div>
 
     {% include 'layout/footer.html' %}
 
- <!-- Scroll to Top Button -->
-<a class="scroll-to-top rounded cl-white theme-bg" href="#page-top">
-    <i class="ti-angle-double-up"></i>
-</a>
+    <!-- Scroll to Top Button -->
+    <a class="scroll-to-top rounded cl-white theme-bg" href="#page-top">
+        <i class="ti-angle-double-up"></i>
+    </a>
 
-<!-- JavaScript Plugins -->
-<script src="{% static 'layout/assets/plugins/jquery/jquery.min.js' %}"></script>
-<script src="{% static 'layout/assets/plugins/bootstrap/js/bootstrap.bundle.min.js' %}"></script>
-<script src="{% static 'layout/assets/plugins/jquery-easing/jquery.easing.min.js' %}"></script>
-<script src="{% static 'layout/assets/plugins/slick-slider/slick.js' %}"></script>
-<script src="{% static 'layout/assets/plugins/slim-scroll/jquery.slimscroll.min.js' %}"></script>
+    <!-- JavaScript Plugins -->
+    <script src="{% static 'layout/assets/plugins/jquery/jquery.min.js' %}"></script>
+    <script src="{% static 'layout/assets/plugins/bootstrap/js/bootstrap.bundle.min.js' %}"></script>
+    <script src="{% static 'layout/assets/plugins/jquery-easing/jquery.easing.min.js' %}"></script>
+    <script src="{% static 'layout/assets/plugins/slick-slider/slick.js' %}"></script>
+    <script src="{% static 'layout/assets/plugins/slim-scroll/jquery.slimscroll.min.js' %}"></script>
 
-<!-- Angular Tooltip -->
-<script src="{% static 'layout/assets/plugins/angular-tooltip/angular.js' %}"></script>
-<script src="{% static 'layout/assets/plugins/angular-tooltip/angular-tooltips.js' %}"></script>
-<script src="{% static 'layout/assets/plugins/angular-tooltip/index.js' %}"></script>
+    <!-- Angular Tooltip -->
+    <script src="{% static 'layout/assets/plugins/angular-tooltip/angular.js' %}"></script>
+    <script src="{% static 'layout/assets/plugins/angular-tooltip/angular-tooltips.js' %}"></script>
+    <script src="{% static 'layout/assets/plugins/angular-tooltip/index.js' %}"></script>
 
-<!-- Morris.js charts -->
-<script src="{% static 'layout/assets/plugins/raphael/raphael.min.js' %}"></script>
-<script src="{% static 'layout/assets/plugins/morris.js/morris.min.js' %}"></script>
+    <!-- Morris.js charts -->
+    <script src="{% static 'layout/assets/plugins/raphael/raphael.min.js' %}"></script>
+    <script src="{% static 'layout/assets/plugins/morris.js/morris.min.js' %}"></script>
 
-<!-- Custom Chart JavaScript -->
-<script src="{% static 'layout/js/custom/dashboard/dashboard.js' %}"></script>
+    <!-- Custom Chart JavaScript -->
+    <script src="{% static 'layout/js/custom/dashboard/dashboard.js' %}"></script>
 
-<!-- Core Template Scripts -->
-<script src="{% static 'layout/js/adminfier.js' %}"></script>
-<script src="{% static 'layout/js/jQuery.style.switcher.js' %}"></script>
-<script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
+    <!-- Core Template Scripts -->
+    <script src="{% static 'layout/js/adminfier.js' %}"></script>
+    <script src="{% static 'layout/js/jQuery.style.switcher.js' %}"></script>
 
-<!-- JS personnalisé pour tous les templates -->
-{% block extra_js %}{% endblock %}
+    <!-- Select2 depuis CDN -->
+    <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
 
-<!-- Menu toggle scripts -->
-<script>
-    function openRightMenu() {
-        document.getElementById("rightMenu").style.display = "block";
-    }
-    function closeRightMenu() {
-        document.getElementById("rightMenu").style.display = "none";
-    }
-</script>
+    <!-- JS personnalisé pour tous les templates -->
+    {% block extra_js %}{% endblock %}
 
-<!-- Style switcher -->
-<script>
-    $(document).ready(function() {
-        $('#styleOptions').styleSwitcher();
-    });
-</script>
+    <!-- Menu toggle scripts -->
+    <script>
+        function openRightMenu() {
+            document.getElementById("rightMenu").style.display = "block";
+        }
+        function closeRightMenu() {
+            document.getElementById("rightMenu").style.display = "none";
+        }
+    </script>
 
-<!-- Dropdown init -->
-<script>
-    $('.dropdown-toggle').dropdown();
-</script>
+    <!-- Style switcher -->
+    <script>
+        $(document).ready(function() {
+            $('#styleOptions').styleSwitcher();
+        });
+    </script>
 
-</div> <!-- Fin du wrapper -->
+    <!-- Dropdown init -->
+    <script>
+        $('.dropdown-toggle').dropdown();
+    </script>
+
+    <!-- ✅ Bootstrap 5 officiel depuis CDN (corrige les modals) -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+
+    <!-- Select2 init -->
+    <script>
+      $(document).ready(function() {
+          $('.select2').select2();
+      });
+    </script>
 </body>
-<script>
-  $(document).ready(function() {
-      $('.select2').select2();
-  });
-</script>
-
-
 </html>
